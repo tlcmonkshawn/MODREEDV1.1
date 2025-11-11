@@ -1,0 +1,736 @@
+URL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-elasticsearch
+================================================================================
+
+Home
+Technology areas
+Generative AI on Vertex AI
+Documentation
+Send feedback
+Grounding with Elasticsearch
+Stay organized with collections
+Save and categorize content based on your preferences.
+This page explains how you can use your Elasticsearch instance to ground on your
+data.
+Grounding Gemini with Elasticsearch
+Grounding
+involves using public and private
+datasets to provide context and facts to ground Large Language Model (LLM)
+responses. By grounding with Elasticsearch, you can take advantage of your
+existing Elasticsearch indexes to help enhance the quality and reliability of
+Gemini's output, reducing hallucinations and helping to ensure
+responses are relevant to your data. This lets you build powerful RAG
+applications such as:
+Generative search summaries
+Question-and-answer chatbots with enterprise data
+Agents grounded in your data
+You can ground an answer on up to 10 data sources at one time. You can combine
+grounding with Elasticsearch with
+Grounding with
+Google Search
+to connect the model with world knowledge, a wide possible range of topics, or
+up-to-date information on the internet.
+Supported models
+The following
+models support grounding with Elasticsearch
+with text input only:
+Gemini 2.5 Flash
+(Preview)
+Gemini 2.5 Flash-Lite
+(Preview)
+Gemini 2.5 Flash-Lite
+Gemini 2.5 Flash with Live API native audio
+(Preview)
+Gemini 2.0 Flash with Live API
+(Preview)
+Gemini 2.5 Pro
+Gemini 2.5 Flash
+Gemini 2.0 Flash
+Set up a search template in Elasticsearch
+This section explains how you can use your Elasticsearch instance to ground on
+your data stored in the instance.
+Best practices
+For the best grounding responses, use these principles when creating a search
+template:
+Include only relevant and useful data. For example, in a product catalog,
+specifying an image URL might not help the LLM answer prompts about product
+properties unless the prompt specifically asks for a URL. Similarly, avoid
+outputting embedding vectors.
+Grounding removes Elasticsearch results with low relevance to your prompts.
+You should provide a higher number of Elasticsearch results to capture all
+relevant context.
+Results data can be in one field or spread across multiple fields.
+Sample templates
+You can use your search templates. However, we recommend that you use the
+generic kNN search template with Elasticsearch grounding. For additional search
+templates, see the
+GitHub repository
+.
+This semantic search with Vertex AI is a generic kNN search.
+PUT
+_scrip
+ts
+/google
+-
+te
+mpla
+te
+-
+k
+nn
+-
+mul
+t
+iou
+t
+pu
+t
+{
+"script"
+:
+{
+"lang"
+:
+"mustache"
+,
+"source"
+:
+{
+"_source"
+:
+{
+"excludes"
+:
+[
+"title_embedding"
+,
+"description_embedding"
+,
+"images"
+]
+},
+"size"
+:
+"num_hits"
+,
+"knn"
+:
+[
+{
+"field"
+:
+"description_embedding"
+,
+"k"
+:
+5
+,
+"num_candidates"
+:
+10
+,
+"query_vector_builder"
+:
+{
+"text_embedding"
+:
+{
+"model_id"
+:
+"googlevertexai_embeddings_004"
+,
+"model_text"
+:
+"query"
+}
+},
+"boost"
+:
+0.4
+},
+{
+"field"
+:
+"title_embedding"
+,
+"k"
+:
+5
+,
+"num_candidates"
+:
+10
+,
+"query_vector_builder"
+:
+{
+"text_embedding"
+:
+{
+"model_id"
+:
+"googlevertexai_embeddings_004"
+,
+"model_text"
+:
+"query"
+}
+},
+"boost"
+:
+0.6
+}
+]
+}
+}
+}
+Generate grounded responses with Elasticsearch
+This section explains how you use the Vertex AI API to ground your LLM
+responses.
+Prerequisites
+Before you can ground LLM responses with Elasticsearch, you must complete the
+following:
+Activate the Vertex AI API
+: Ensure that both the
+Vertex AI API is enabled for your Google Cloud project.
+Install and sign in to the Google Cloud CLI CLI
+: Install and initialize
+the gcloud CLI
+command-line tool
+.
+Elasticsearch setup
+: Use an existing Elasticsearch cluster and index that
+you want to use for grounding. Obtain the following information from your
+Elasticsearch setup:
+Endpoint
+: The URL of your Elasticsearch cluster.
+Index Name
+: The name of the index you want to search such as
+my-data-index
+.
+API Key
+: An API key that allows access to your Elasticsearch cluster.
+The API key must start with the prefix
+ApiKey
+.
+Create an Elasticsearch search template
+: Use an Elasticsearch data source
+that uses a reference
+template
+that returns result data
+for grounding.
+Generate grounded responses
+Console
+To ground with Elasticsearch in the Google Cloud console, do the following:
+Go to Vertex AI Studio to the
+Create prompt
+page.
+Go to Create prompt
+In the
+Settings
+panel, to ground your data, click the
+Grounding: Your
+data
+toggle.
+In the
+Customize Grounding
+pane, select
+Elasticsearch
+.
+Enter the endpoint in the
+Elasticsearch endpoint
+field.
+Enter
+ApiKey YOUR_API_KEY
+in the
+Elasticsearch API Key
+field.
+Enter the index in the
+Elasticsearch index
+field.
+Enter the search template in the
+Elasticsearch search template
+field.
+Adjust the number of hits by sliding the
+Number of hits
+slider.
+Click
+Save
+.
+Enter your prompt.
+Click
+Submit
+.
+Understand your response
+If your model prompt successfully grounds to Elasticsearch data stores using the
+Vertex AI Studio or the API, then the model's responses include
+metadata with citations and source content. If low-source relevance or
+incomplete information occurs within the model's response, then metadata might
+not be provided, and the prompt response won't be grounded.
+Python
+Install
+pip install --upgrade google-genai
+To learn more, see the
+SDK reference documentation
+.
+Set environment variables to use the Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export
+GOOGLE_CLOUD_PROJECT
+=
+GOOGLE_CLOUD_PROJECT
+export
+GOOGLE_CLOUD_LOCATION
+=
+global
+export
+GOOGLE_GENAI_USE_VERTEXAI
+=
+True
+from
+google
+import
+genai
+from
+google.genai.types
+import
+(
+GenerateContentConfig
+,
+Elasticsearch
+,
+Retrieval
+,
+Tool
+,
+HttpOptions
+,
+)
+client
+=
+genai
+.
+Client
+(
+http_options
+=
+HttpOptions
+(
+api_version
+=
+"v1"
+))
+# Replace with your Elasticsearch details
+ELASTIC_SEARCH_ENDPOINT
+=
+"YOUR_ELASTICSEARCH_ENDPOINT"
+ELASTIC_SEARCH_API_KEY
+=
+"YOUR_ELASTICSEARCH_API_KEY"
+INDEX_NAME
+=
+"YOUR_INDEX_NAME"
+SEARCH_TEMPLATE_NAME
+=
+"YOUR_SEARCH_TEMPLATE_NAME"
+NUM_HITS
+=
+5
+tool
+=
+Tool
+(
+retrieval
+=
+Retrieval
+(
+external_api
+=
+Elasticsearch
+(
+api_spec
+=
+"ELASTIC_SEARCH"
+,
+endpoint
+=
+ELASTIC_SEARCH_ENDPOINT
+,
+api_auth
+=
+{
+"apiKeyConfig"
+:
+{
+"apiKeyString"
+:
+f
+"ApiKey
+{
+ELASTIC_SEARCH_API_KEY
+}
+"
+}
+},
+elastic_search_params
+=
+{
+"index"
+:
+INDEX_NAME
+,
+"searchTemplate"
+:
+SEARCH_TEMPLATE_NAME
+,
+"numHits"
+:
+NUM_HITS
+,
+},
+)
+)
+)
+response
+=
+client
+.
+models
+.
+generate_content
+(
+model
+=
+"gemini-2.5-flash"
+,
+# Or another supported model
+contents
+=
+"What are the main features of product X?"
+,
+# Your query
+config
+=
+GenerateContentConfig
+(
+tools
+=
+[
+tool
+],
+),
+)
+print
+(
+response
+.
+text
+)
+REST
+To send a text prompt and ground it with Elasticsearch, send a POST request to
+the Vertex AI API. At a minimum, you must provide the request
+body. Make sure to do the following replacements:
+PROMPT
+: The text prompt to ground.
+ELASTIC_SEARCH_ENDPOINT
+: The absolute endpoint path for
+the Elasticsearch resource to use.
+ELASTIC_SEARCH_API_KEY
+: The API key for the Elasticsearch
+data endpoint.
+INDEX_NAME
+: The name of the Elasticsearch index used for
+grounding.
+SEARCH_TEMPLATE_NAME
+: The Elasticsearch search template
+used for grounding.
+NUM_HITS
+: The number of results returned from the
+Elasticsearch data source and used for grounding.
+HTTP method and URL:
+POST
+https://
+LOCATION
+-aiplatform.googleapis.com/v1beta1/projects/
+PROJECT_ID
+/locations/
+LOCATION
+/publishers/google/models/
+MODEL_ID
+:generateContent
+Request JSON body:
+{
+"contents"
+:
+[
+{
+"role"
+:
+"user"
+,
+"parts"
+:
+[
+{
+"text"
+:
+"
+PROMPT
+"
+}
+]
+}
+],
+"tools"
+:
+[{
+"retrieval"
+:
+{
+"externalApi"
+:
+{
+"api_spec"
+:
+"ELASTIC_SEARCH"
+,
+"endpoint"
+:
+"
+ELASTIC_SEARCH_ENDPOINT
+"
+,
+"apiAuth"
+:
+{
+"apiKeyConfig"
+:
+{
+"apiKeyString"
+:
+"ApiKey
+ELASTIC_SEARCH_API_KEY
+"
+}
+},
+"elasticSearchParams"
+:
+{
+"index"
+:
+"
+INDEX_NAME
+"
+,
+"searchTemplate"
+:
+"
+SEARCH_TEMPLATE_NAME
+"
+,
+"numHits"
+:
+"
+NUM_HITS
+"
+,
+}
+}
+}
+}]
+}
+For more information on other API fields such as system instructions and
+multi-turn chats, see
+Generative AI beginner's guide
+.
+Send the API request
+You can save the request body in a file named
+request.json
+.
+Then execute the POST API request, and do the following replacements:
+LOCATION
+: The region to process the request. To use the
+global endpoint
+, exclude the location from the endpoint name, and configure the location of the resource to
+global
+.
+PROJECT_ID
+: Your Google Cloud project ID. For more information on project IDs, see
+Creating and managing projects
+.
+MODEL_ID
+: The model ID of the multimodal model.
+curl
+-X
+POST
+\
+-H
+"Authorization: Bearer
+$(
+gcloud
+auth
+print-access-token
+)
+"
+\
+-H
+"Content-Type: application/json; charset=utf-8"
+\
+-d
+@request.json
+\
+"https://
+LOCATION
+-aiplatform.googleapis.com/v1beta1/projects/
+PROJECT_ID
+/locations/
+LOCATION
+/publishers/google/models/
+MODEL_ID
+:generateContent"
+You should receive a JSON response similar to the following:
+{
+"candidates"
+:
+[
+{
+"content"
+:
+{
+"role"
+:
+"model"
+,
+"parts"
+:
+[
+{
+"text"
+:
+"Based on the information ..."
+}
+]
+},
+"finishReason"
+:
+"STOP"
+,
+"safetyRatings"
+:
+[
+"..."
+],
+"groundingMetadata"
+:
+{
+"groundingChunks"
+:
+[
+{
+"retrievedContext"
+:
+{
+"text"
+:
+"ipsum lorem ..."
+}
+},
+{
+...
+},
+{
+...
+},
+],
+"groundingSupports"
+:
+[
+{
+"segment"
+:
+{
+"startIndex"
+:
+25
+,
+"endIndex"
+:
+147
+,
+"text"
+:
+"ipsum lorem ..."
+},
+"groundingChunkIndices"
+:
+[
+1
+,
+2
+],
+"confidenceScores"
+:
+[
+0.6626542
+,
+0.82018316
+],
+},
+],
+},
+}
+],
+}
+Understand your response
+The response from both APIs include the LLM-generated text, which is called a
+candidate
+. If your model prompt successfully grounds to your Elasticsearch
+data source, then the responses include grounding metadata, which identifies the
+parts of the response that were derived from your Elasticsearch data. However,
+there are several reasons this metadata might not be provided, and the prompt
+response won't be grounded. These reasons include low-source relevance or
+incomplete information within the model's response.
+The following is a breakdown of the output data:
+Role
+: Indicates the sender of the grounded answer. Because the response
+always contains grounded text, the role is always
+model
+.
+Text
+: The grounded answer generated by the LLM.
+Grounding metadata
+: Information about the grounding source, which contains
+the following elements:
+Grounding chunks
+: A list of results from your Elasticsearch index that
+support the answer.
+Grounding supports
+: Information about a specific claim within the answer
+that can be used to show citations:
+Segment
+: The part of the model's answer that is substantiated by a
+grounding chunk.
+Grounding chunk index
+: The index of the grounding chunks in the
+grounding chunks list that corresponds to this claim.
+Confidence scores
+: A number from 0 to 1 that indicates how grounded
+the claim is in the provided set of grounding chunks. Not available for
+Gemini 2.5 Pro and Gemini 2.5 Flash and later.
+What's next
+To learn how to send chat prompt requests, see
+Multiturn chat
+.
+To learn about responsible AI best practices and Vertex AI's safety filters,
+see
+Safety best practices
+.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2025-11-07 UTC.

@@ -1,0 +1,1375 @@
+URL: https://docs.cloud.google.com/vertex-ai/generative-ai/pricing
+================================================================================
+
+Cost of building and deploying AI models in Vertex AI
+Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+You're charged only for requests that return a 200 response code. Requests returning any other response codes, such as 4xx and 5xx codes, aren't charged for the input or output.
+This page covers pricing for Generative AI on Vertex AI. For all other Vertex AI pricing including
+ML Platform and MLOps services please refer to
+Vertex AI pricing page
+.
+Google models
+Gemini 2.5
+Model
+Type
+Price (/1M tokens) <= 200K input tokens
+Price (/1M tokens) > 200K input tokens
+Price (/1M tokens) <= 200K
+cached
+input tokens
+Price (/1M tokens) > 200K
+cached
+input tokens
+Price (/1M tokens) <= 200K input tokens with batch API
+Price (/1M tokens) > 200K input tokens with batch API
+Gemini 2.5 Pro
+Input (text, image, video, audio)
+$1.25
+$2.5
+$0.125
+$0.250
+$0.625
+$1.25
+Text output (response and reasoning)
+$10
+$15
+N/A
+N/A
+$5
+$7.5
+Gemini 2.5 Pro
+Computer Use-Preview
+Input (text, image, video, audio)
+$1.25
+$2.5
+N/A
+N/A
+N/A
+N/A
+Text output (response and reasoning)
+$10.00
+$15.00
+N/A
+N/A
+N/A
+N/A
+Gemini 2.5
+Flash
+Input (text, image, video)
+$0.30
+$0.30
+$0.030
+$0.030
+$0.15
+$0.15
+Audio Input
+$1
+$1
+$0.100
+$0.100
+$0.5
+$0.5
+Text output (response and reasoning)
+$2.50
+$2.50
+N/A
+N/A
+$1.25
+$1.25
+Image output***
+$30
+$30
+N/A
+N/A
+$15
+$15
+Tuning for 1M training tokens
+$5.00
+N/A
+N/A
+N/A
+N/A
+N/A
+Gemini 2.5 Flash Live API
+1M input text tokens
+$0.5
+$0.5
+N/A
+N/A
+N/A
+N/A
+1M input audio tokens
+$3
+$3
+N/A
+N/A
+N/A
+N/A
+1M input video/image tokens
+$3
+$3
+N/A
+N/A
+N/A
+N/A
+1M output text tokens
+$2
+$2
+N/A
+N/A
+N/A
+N/A
+1M output audio tokens
+$12
+$12
+N/A
+N/A
+N/A
+N/A
+Gemini 2.5 Flash Lite
+Input (text, image, video)
+$0.1
+$0.1
+$0.010
+$0.010
+$0.05
+$0.05
+Audio Input
+$0.3
+$0.3
+$0.030
+$0.030
+$0.15
+$0.15
+Text output (response and reasoning)
+$0.4
+$0.4
+N/A
+N/A
+$0.2
+$0.2
+Grounding with Google Search
+Gemini 2.0 Flash
+,
+2.5 Flash
+and
+2.5 Flash-Lite
+include a combined 1,500 grounded prompts per day at no additional charge.
+Gemini 2.5 Pro
+includes 10,000 grounded prompts per day at no additional charge.
+Grounded prompts exceeding those limits are billed at
+$35 per 1,000 grounded prompts
+.
+A grounded prompt is a request submitted to Gemini that makes one or more queries to Google Search**. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Web Grounding for enterprise
+$45 per 1,000 grounded prompts
+. A grounded prompt is a request submitted to Gemini that makes one or more queries to Web Grounding for enterprise**. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Grounding with your data
+$2.5 per 1,000 requests.
+Grounding with Google Maps
+Grounded prompts exceeding those limits are billed at
+$25 per 1,000 grounded prompts
+.
+One grounded prompt is a request sent to Gemini that makes at least 1 query to Google Maps.
+* If a query input context is longer than 200K tokens, all tokens (input and output) are charged at long context rates.
+** Grounding with Google Search and Web Grounding for enterprise is billed only when a prompt successfully returns web results (i.e., results containing at least one grounding support URL from the web). Gemini model usage fees apply separately.
+*** A 1024x1024 image consumes 1290 tokens. Per image token count varies by image resolution. For more information on how to calculate tokens, you can refer to our
+documentation
+.
+**** Computer Use billing uses the Gemini 2.5 Pro SKU, to split out Computer Use costs, apply billing tags. See
+more
+here
+.
+LiveAPI Session's Context Window billing explained
+: You are charged per turn for all tokens present in the Session Context Window. The Session Context Window includes new tokens (current turn) + all accumulated tokens from previous turns. This means tokens from past turns are re-processed and accounted for in each new turn, up to your configured context window size. A "turn" is one user input and the model's response.
+Proactive Audio Mode
+: When enabled, input tokens are charged while LiveAPI is listening. Output tokens are only charged when the API responds.
+When audio to text transcription is enabled, all text tokens generated for transcription are charged at the text token output rate.
+Gemini 2.0
+Gemini 2.0 is billed based on tokens. To calculate the number of input tokens in
+your request prior to sending the request, you can use the
+SDK
+tokenizer
+or the
+countTokens API
+.
+If your request fails with a 400 or 500 error, you won't be charged for the
+tokens used.
+Use the toggle in the pricing table to compare token-based pricing and
+modality-based pricing.
+Token-based pricing
+Model
+Type
+Price
+Price with Batch API
+Gemini 2.0 Flash
+1M Input tokens
+$0.15
+$0.075
+1M Input audio tokens
+$1.00
+$0.50
+1M Output text tokens
+$0.60
+$0.30
+Tuning for 1M training tokens
+$3.00
+Gemini 2.0 Flash Image Generation
+1M input tokens
+$0.15
+1M input audio tokens
+$1.00
+1M input video tokens
+$3
+1M output text tokens
+$0.60
+1M output image tokens
+$30.00
+Gemini 2.0 Flash Live API
+1M input text tokens
+$0.5
+1M input audio tokens
+$3
+1M input video/image tokens
+$3
+1M output text tokens
+$2
+1M output audio tokens
+$12
+Gemini 2.0 Flash Lite
+1M Input tokens
+$0.075
+$0.0375
+1M Input audio tokens
+$0.075
+$0.0375
+1M Output text tokens
+$0.30
+$0.15
+Tuning for 1M training tokens
+$1.00
+Grounding with Google Search
+Gemini 2.0 Flash
+and
+2.5 Flash
+include a combined 1,500 grounded prompts per day at no additional charge.
+Grounded prompts exceeding those limits are billed at
+$35 per 1,000 grounded prompts
+.
+A grounded prompt is a request submitted to Gemini that makes one or more queries to Google Search*. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Web Grounding for enterprise
+$45 per 1,000 grounded prompts
+. A grounded prompt is a request submitted to Gemini that makes one or more queries to Web Grounding for enterprise*. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Grounding with your data
+$2.5 per 1,000 requests starting June 16, 2025.
+Grounding with Google Maps
+Gemini models include a number of daily grounded prompts at no extra cost:
+Gemini Flash
+and
+Flash-Lite
+: combined 1,500 grounded prompts per day.
+Gemini Pro
+: 10,000 grounded prompts per day.
+Grounded prompts exceeding those limits are billed at
+$25 per 1,000 grounded prompts
+.
+One grounded prompt is a request sent to Gemini that makes at least 1 query to Google Maps.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Modality-based pricing
+The below modality pricing is based on average use cases for reference only. Actual billing will only be based on tokens:
+4 characters result in approximately 1 text token including white space.
+For an 1024x1024 image, it consumes 1290 tokens. Per image token count varies by image resolution. For more information on how to calculate tokens, you can refer to our
+documentation
+.
+Video input consumes 258 tokens per second at the sample rate of one frame per second. Video with audio bills for both video tokens and audio tokens.
+Audio input consumes 25 tokens per second without timestamp.
+Model
+Type
+Price
+Price with Batch API
+Gemini 2.0 Flash
+Input text ($/M char)
+$0.0375
+$0.01875
+Input image ($/image)
+$0.0001935
+$0.00009675
+Input video ($/sec)
+$0.0000387
+$0.00001935
+Input audio ($/sec)
+$0.000025
+$0.0000125
+Output text ($/M char)
+$0.15
+$0.075
+Gemini 2.0 Flash Image Generation
+Input text ($/M char)
+$0.0375
+Input image ($/image)
+$0.0001935
+Input video ($/sec)
+$0.0000387
+Input audio ($/sec)
+$0.000025
+Output text ($/M char)
+$0.15
+Output image image ($/image)
+$0.04
+Gemini 2.0 Flash Lite
+Input text ($/M char)
+$0.01875
+$0.009375
+Input image ($/image)
+$0.00009675
+$0.000048375
+Input video ($/sec)
+$0.00001935
+$0.000009675
+Input audio ($/sec)
+$0.000001875
+$0.000000938
+Output text ($/M char)
+$0.075
+$0.0375
+Grounding with Google Search
+Gemini 2.0 Flash
+and
+2.5 Flash
+include a combined 1,500 grounded prompts per day at no additional charge.
+Grounded prompts exceeding those limits are billed at
+$35 per 1,000 grounded prompts
+.
+A grounded prompt is a request submitted to Gemini that makes one or more queries to Google Search*. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Web Grounding for enterprise
+$45 per 1,000 grounded prompts
+. A grounded prompt is a request submitted to Gemini that makes one or more queries to Web Grounding for enterprise*. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+* Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+* Training tokens are calculated by the total number of tokens in your training dataset, multiplied by your number of epochs.
+* PDFs are billed as image input, with one PDF page equivalent to one image.
+* Tuned model endpoint has the same prediction price as the base model.
+*  Grounding with Google Search and Web Grounding for enterprise is billed only when a prompt successfully returns web results (i.e., results containing at least one grounding support URL from the web). Gemini model usage fees apply separately.
+* Gemini 2.0 Flash Live API: 25 tokens per second of audio (input/output), 258 tokens per second of video (input). Grounding with Google Search remains free of charge while Gemini 2.0 Flash Live API is in Preview.
+LiveAPI Session's Context Window billing explained
+: You are charged per turn for all tokens present in the Session Context Window. The Session Context Window includes new tokens (current turn) + all accumulated tokens from previous turns. This means tokens from past turns are re-processed and accounted for in each new turn, up to your configured context window size. A "turn" is one user input and the model's response.
+When audio to text transcription is enabled, all text tokens generated for transcription are charged at the text token output rate.
+Vertex AI Model Optimizer Pricing  (Experimental)*
+Vertex AI Model Optimizer simplifies use of Gemini for enterprise customers by providing a single meta-endpoint for Gemini model requests--customers using this service do not have to specify whether to use Flash, Pro, or a specific version. Instead they simply provide a configurable setting (cost, quality, or balance) to indicate their preferences, and Model Optimizer applies the right level of intelligence appropriate for the task by sending each query to the best fit model.
+Vertex AI Model Optimizer applies dynamic pricing. This means that the average price per token is dependent on the model intelligence level applied to complete the task. For this reason, pricing examples are provided below to illustrate likely scenarios based on your configuration setting (see tables below). Model Optimizer SKUs are $1 skus that function as a purchasing unit to apply for your billing, you are still billed on a consumption basis after you have used the models.
+5:1 I/O ratio
+Example 1
+chat bot
+NOTE: these ranges are not guarantees, individual customer results may vary
+Customer Preference
+Customer Input Tokens Sent to MO
+Customer Output Tokens Sent to MO
+Average Input Price per Million Tokens (High Range)
+Average Output Price per Million Tokens (High Range)
+Average Input Price per Million Tokens (Low Range)
+Average Output Price per Million Tokens (Low Range)
+Cost
+10,000,000
+2,000,000
+$0.63
+$2.50
+$0.16
+$0.63
+Balanced
+10,000,000
+2,000,000
+$1.26
+$5.00
+$0.63
+$2.50
+Quality
+10,000,000
+2,000,000
+$1.89
+$7.50
+$1.26
+$5.00
+1:20  I/O ratio
+Example 2 Content generation
+Customer Preference
+Customer Input Tokens Sent to MO
+Customer Output Tokens Sent to MO
+Average Input Price per Million Tokens (High Range)
+Average Output Price per Million Tokens (High Range)
+Average Input Price per Million Tokens (Low Range)
+Average Output Price per Million Tokens (Low Range)
+Cost
+1,000,000
+20,000,000
+$0.63
+$2.50
+$0.16
+$0.63
+Balanced
+1,000,000
+20,000,000
+$1.26
+$5.00
+$0.63
+$2.50
+Quality
+1,000,000
+20,000,000
+$1.89
+$7.50
+$1.26
+$5.00
+* Model Optimizer is a paid experimental offering, and may route requests to experimental versions of Gemini on Vertex.
+Other Gemini models
+All Gemini models other than Gemini 2.0 or Gemini 2.5 are billed based on modalities such as
+characters, images, video/audio seconds. Text input is charged by every 1,000
+characters of input (prompt) and every 1,000 characters of output (response).
+Characters are counted by UTF-8 code points and white space is excluded from the
+count, resulting in approximately 4 characters per token. Prediction requests
+that lead to filtered responses are charged for the input only. At the end of
+each billing cycle, fractions of one cent ($0.01) are rounded to one cent. Media
+input is charged per image or per second (video). If your request fails with a
+400 or 500 error, you won't be charged for the tokens used.
+Model
+Feature
+Type
+Price
+( =< 128K input tokens)
+Price
+( > 128K input tokens)
+Gemini 1.5 Flash
+Multimodal
+Image Input
+Video Input
+Text Input
+Audio Input
+$0.00002 / image
+$0.00002 / second
+$0.00001875 / 1k characters
+$0.000002 / second
+$0.00004 / image
+$0.00004 / second
+$0.0000375 / 1k characters
+$0.000004 / second
+Text Output
+$0.000075 / 1k characters
+$0.00015 / 1k characters
+Tuning*
+Training Token
+$8 / M tokens
+Gemini 1.5 Pro
+Multimodal
+Image Input
+Video Input
+Text Input
+Audio Input
+$0.00032875 / image
+$0.00032875 / second
+$0.0003125 / 1k characters
+$0.00003125 / second
+$0.0006575 / image
+$0.0006575 / second
+$0.000625 / 1k characters
+$0.0000625 / second
+Text Output
+$0.00125 / 1k characters
+$0.0025 / 1k characters
+Tuning*
+Training Token
+$80 / M tokens
+Gemini 1.0 Pro
+Multimodal
+Image Input
+Video Input
+Text Input
+$0.0025 / image
+$0.002 / second
+$0.000125 / 1k characters
+Text Output
+$0.000375 / 1k characters
+Grounding with Google Search
+Text
+$35 per 1,000 grounded prompts
+.
+A grounded prompt is a request submitted to Gemini that makes one or more queries to Google Search*. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Web Grounding for enterprise
+Text
+$45 per 1,000 grounded prompts
+.
+A grounded prompt is a request submitted to Gemini that makes one or more queries to Web Grounding for enterprise*. Even if multiple search queries are sent to Google Search, there is only one charge for a grounded prompt.
+Please contact your account team if you require more than 1 million grounded prompts per day.
+Grounding with your data
+Text
+$2.5 per 1,000 requests starting June 16, 2025.
+* Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+* If a query context is longer than 128K, all tokens are charged at long context rates.
+* Gemini models are available in batch mode at 50% discount.
+* Gemini 1.0 Pro only support up to 32K context window.
+* PDFs are billed as image input, with one PDF page equivalent to one image.
+* Tuned model endpoint has the same prediction price as the base model.
+* Grounding with Google Search and Web Grounding for enterprise is billed only when a prompt successfully returns web results (i.e., results containing at least one grounding support URL from the web). Gemini model usage fees apply separately.
+Imagen
+With Imagen on Vertex AI, you can generate novel images and edit images based on text prompts you provide, or edit only parts of images using a mask area you define along with a host of other capabilities.
+Model
+Feature
+Description
+Input
+Output
+Price
+Imagen 4 Ultra
+Image generation
+Generate an image
+Text prompt
+Image
+$0.06 per image
+Imagen 4
+Upscaling
+Increase resolution of a generated image to 2K, 3K, and 4K
+Image
+Image
+$0.06 per image
+Imagen 4
+Image generation
+Generate an image
+Text prompt
+Image
+$0.04 per image
+Imagen 4 Fast
+Image generation
+Generate an image
+Text prompt
+Image
+$0.02 per image
+Imagen 3
+Image generation
+Generate an image
+Edit an image
+Customize an image
+Text prompt
+Image
+$0.04 per image
+Imagen 3 Fast
+Image generation
+Generate an image
+Text prompt
+Image
+$0.02 per image
+Imagen 2, Imagen 1
+Image generation
+Generate an image
+Text prompt
+Image
+$0.020 per image
+Imagen 2, Imagen 1
+Image editing
+Edit an image using mask free or mask approach
+Image/Text prompt
+Image
+$0.020 per image
+Imagen 1
+Upscaling
+Increase resolution of a generated image to 2k and 4k
+Image
+Image
+$0.003 per image
+Imagen 1
+Fine-tuning
+Enable a "subject" provided by the user to used in Imagen prompts (few shot training)
+Subject(s) with text identifier and 4-8 images per subject
+Fine-tuned model (after training with user provided subjects)
+$ per node hour (Vertex AI custom training pricing)
+Imagen
+Visual Captioning
+Generate a short or long text caption for an image
+Image
+Text caption
+$0.0015/image
+Imagen
+Visual Q&A
+Provide an answer based on a question referencing an image
+Image/Text prompt
+Text answer
+$0.0015/image
+Imagen
+Product Recontext
+Re-imagine products in a new scene
+1-3 Images of the same product and a text prompt describing desired scene
+Image
+$0.12 per image
+Vertex Virtual Try-On
+Create images of people wearing different clothes
+1 image of a person and 1 image of clothing
+Image
+$0.06 per image
+Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+Veo
+Veo creates incredibly high-quality videos in a wide range of subjects and styles, bringing an improved understanding of real-world physics and the nuances of human movement and expression.
+Model
+Feature
+Description
+Input
+Output
+Output Resolution
+Price
+Veo 3.1
+Video + Audio generation
+Generate high-quality videos with synchronized speech/sound effects from a text prompt or reference image
+Text/Image prompt
+Video + Audio
+720p, 1080p
+$0.40/second
+Veo 3.1
+Video generation
+Generate high-quality videos from a text prompt or reference image
+Text/Image prompt
+Video
+720p, 1080p
+$0.20/second
+Veo 3.1 Fast
+Video + Audio generation
+Generate videos with synchronized speech/sound effects from a text prompt or reference image faster
+Text/Image prompt
+Video + Audio
+720p, 1080p
+$0.15/second
+Veo 3.1 Fast
+Video generation
+Generate videos from a text prompt or reference image faster
+Text/Image prompt
+Video
+720p, 1080p
+$0.10/second
+Veo 3
+Video + Audio generation
+Generate high-quality videos with synchronized speech/sound effects from a text prompt or reference image
+Text/Image prompt
+Video + Audio
+720p, 1080p
+$0.40/second
+Veo 3
+Video generation
+Generate high-quality videos from a text prompt or reference image
+Text/Image prompt
+Video
+720p, 1080p
+$0.20/second
+Veo 3 Fast
+Video + Audio generation
+Generate videos with synchronized speech/sound effects from a text prompt or reference image faster
+Text/Image prompt
+Video + Audio
+720p, 1080p
+$0.15/second
+Veo 3 Fast
+Video generation
+Generate videos from a text prompt or reference image faster
+Text/Image prompt
+Video
+720p, 1080p
+$0.10/second
+Veo 2
+Video generation
+Generate videos from a text prompt or reference image
+Text/Image prompt
+Video
+720p
+$0.50/second
+Veo 2
+Advanced Controls
+Generate videos through start and end frame interpolation, extend generated videos, and apply camera controls
+Text/Image/Video prompt
+Video
+720p
+$0.50/second
+Lyria
+Lyria 2 offers high-quality instrumental music generation that is ideal for sophisticated composition and detailed creative exploration where nuanced output is key.
+Model
+Feature
+Description
+Input
+Output
+Price
+Lyria 2
+Music generation
+Generate music from a text prompt
+Text prompt
+Music
+$0.06 per 30 seconds
+Understand embedding costs for your AI applications
+Model
+Type
+Region
+Price per 1,000 input tokens
+Gemini Embedding
+Input
+Global
+Online requests: $0.00015
+Batch requests: $0.00012
+Output
+Global
+Online requests: No charge
+Batch requests: No charge
+Model
+Type
+Region
+Price per 1,000 characters
+Embeddings for Text
+(Excluding Gemini Embedding)
+Input
+Global
+Online requests: $0.000025
+Batch requests: $0.00002
+Output
+Global
+Online requests: No charge
+Batch requests: No charge
+Model
+Feature
+Description
+Input
+Output
+Price
+multimodalembedding
+Embeddings for Multimodal: Text
+Generate embeddings using text as an input
+Text
+Embeddings
+$0.0002 / 1k characters input
+Embeddings for Multimodal: Image
+Generate embeddings using image as an input
+Image
+Embeddings
+$0.0001 / image input
+Embeddings for Multimodal: Video Plus
+Video Plus
+Video
+Embeddings (up to 15 embeddings per min of video)
+$0.0020 per second of video
+Embeddings for Multimodal: Video Standard
+Video Standard
+Video
+Embeddings (up to 8 embeddings per min of video)
+$0.0010 per second of video
+Embeddings for Multimodal: Video Essential
+Video Essential
+Video
+Embeddings (up to 4 embeddings per min of video)
+$0.0005 per second of video
+Open Source Model
+Type
+Price per 1,000 input tokens
+multilingual-e5-small
+Input:
+Output:
+Batch Input:
+Batch Output:
+Online requests: $0.000015
+Online requests: No charge
+Batch requests: $0.0000075
+Batch requests: No charge
+multilingual-e5-large
+Input:
+Output:
+Batch Input:
+Batch Output:
+Online requests: $0.000025
+Online requests: No charge
+Batch requests: $0.0000125
+Batch requests: No charge
+Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+Pricing for vertex AI's code completion
+Generative AI on Vertex AI charges by every 1,000 characters of input (prompt)
+and every 1,000 characters of output (response). Characters are counted by UTF-8
+code points and white space is excluded from the count. During the Preview
+stage, charges are 100% discounted. Prediction requests that lead to filtered
+responses are charged for the input only. At the end of each billing cycle,
+fractions of one cent ($0.01) are rounded to one cent.
+Model
+Type
+Region
+Price per 1,000 characters
+Codey for Code Completion
+Input
+Global
+Online requests: $0.00025
+Output
+Global
+Online requests: $0.0005
+Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+Translation (Text)
+Use the Vertex AI API and Translation LLM to translate text. LLM translations tend to be more fluent and human sounding than classic translation models, but have more limited language support
+(Learn More)
+.
+Model
+Method
+Usage
+Price per million characters
+LLM
+Text
+translation
+*
+The number of input characters per month
+$10 per million characters
+*
+The number of output characters per month
+$10 per million characters
+*
+Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+*
+Price is per character processed by the model. For details about counted characters, see
+Charged characters
+Context Cache Storage price for Explicit Caching
+Model
+Feature
+Type
+Price (/1M tokens)
+<= 200K input tokens
+Price (/1M tokens)
+> 200K input tokens
+Gemini 2.5 Pro
+Context Cache Storage
+Input (text, image, video, audio)
+$4.5 (/M Tok/hr)
+$4.5 (/M Tok/hr)
+Gemini 2.5 Flash
+Context Cache Storage
+Input (text, image, video, audio)
+$1 (/M Tok/hr)
+$1 (/M Tok/hr)
+Gemini 2.5 Flash Lite
+Context Cache Storage
+Input (text, image, video, audio)
+$1 (/M Tok/hr)
+$1 (/M Tok/hr)
+Gemini 2.0 Models
+Token-based pricing
+Model
+Type
+Storage
+(M tok-hour)
+Price
+Gemini 2.0 Flash
+1M Input tokens
+$1.00
+$0.0375
+1M Input audio tokens
+$1.00
+$0.25
+1M Output text tokens
+NA
+NA
+Gemini 2.0 Flash Lite
+1M Input tokens
+$1.00
+$0.01875
+1M Input audio tokens
+$1.00
+$0.01875
+1M Output text tokens
+NA
+NA
+Modality-based pricing
+The below modality pricing is based on average use cases for reference only. Actual billing will only be based on tokens:
+4 characters result in approximately 1 text token including white space.
+For an 1024x1024 image, it consumes 1290 tokens. Per image token count varies by image resolution. For more information on how to calculate tokens, you can refer to our
+documentation
+.
+Video input consumes 258 tokens per second at the sample rate of one frame per second. Video with audio bills for both video tokens and audio tokens.
+Audio input consumes 25 tokens per second without timestamp.
+Model
+Type
+Storage
+(Modality-hour)
+Price
+Gemini 2.0 Flash
+Input text ($/M char)
+$0.25
+$0.009375
+Input image ($/image)
+$0.00129
+$0.000048375
+Input video ($/sec)
+$0.000258
+$0.000009675
+Input audio ($/sec)
+$0.000025
+$0.00000625
+Output text ($/M char)
+NA
+NA
+Gemini 2.0 Flash Lite
+Input text ($/M char)
+$0.25
+$0.0046875
+Input image ($/image)
+$0.00129
+$0.0000241875
+Input video ($/sec)
+$0.000258
+$0.000009675
+Input audio ($/sec)
+$0.000258
+$0.0000048375
+Output text ($/M char)
+NA
+NA
+Grounding with Google Search
+Gemini 2.0 Flash includes up to 1,500 grounded requests per day at no additional charge. Grounded requests
+exceeding 1,500 per day are billed at $35 per 1,000 requests (up to 1 million requests per day).
+Please contact your account team if you require more than 1 million requests per day.
+Web Grounding for enterprise
+$45 per 1,000 request (up to 1 million requests per day) starting May 5, 2025.
+Please contact your account team if you require more than 1 million requests per day.
+* Prices are listed in US Dollars (USD).
+If you pay in a currency other than USD, the prices listed in your currency on
+Cloud Platform SKUs
+apply.
+* PDFs are billed as image input, with one PDF page equivalent to one image.
+* Tuned model endpoint has the same prediction price as the base model.
+* Grounding with Google Search is billed only for requests that return results containing at least one grounding support URL from the web. Standard Gemini model usage fees also apply.
+Provisioned Throughput
+Provisioned throughput
+assures throughput for your generative AI needs and is transacted via
+generative AI scale units
+,
+or GSUs. Learn more about how much throughput each GSU provides
+here
+and use our online estimator
+here
+.
+Duration
+Price per GSU
+Per
+1 week commit
+$1,200
+Week
+1 month commit
+$2,700
+Month
+3 month commit
+$2,400
+Month
+1 year commit
+$2,000
+Month
+Example cost calculation
+A user needs to ensure they can support 10 queries per second (QPS) of a query with input of 1,000 text tokens and 500 audio tokens and receive an output of 300 text tokens using gemini-2.0-flash.
+Using the throughput and burndown rate
+table
+,
+for gemini-2.0-flash we know an input text token's burndown rate is 1 token, an
+input audio token's burndown rate is 7 tokens, and an output text token's burndown rate is 4 tokens.
+The user's total input tokens is 1,000* (1 token per input text token) + 500* (7 tokens per input audio token) =  4,500 burndown adjusted input tokens. The user's total output tokens is 300* (4 tokens per output text token) = 1,200 burndown adjusted output tokens. Adding them together gives us 4,500 burndown adjusted input tokens + 1,200 burndown adjusted output tokens = 5,700 total tokens per query.
+Multiplying the total tokens per query by QPS gives us 5,700 total tokens per query * 10 QPS = 57,000 total tokens per second.
+Dividing this by the total throughput per second per GSU gives us 57,000 total tokens per second ÷ 3,360 per-second throughput per GSU = 16.96 GSUs. The minimum GSU purchase increment for this model is 1, so the user would need 17 GSUs.
+If the user wanted to sustain this throughput for 1 week, it would cost $1,200 * 17 GSUs = $20,400 per week. If they wanted to sustain this throughput for 1 month, it would cost $2,700 * 17 GSUs = $45,900 per month. If they wanted to sustain this throughput for 3 months, it would cost $2,400 * 17 GSUs = $40,800 per month. And finally, if they wanted to sustain this throughput for 1 year, it would cost $2,000 * 17 GSUs = $34,000 per month.
+Model Tuning
+Model tuning is an effective way to customize large models to your tasks. It's a key step to improve the model's quality and efficiency. Model tuning provides the following benefits:
+Higher quality for your specific tasks
+Increased model robustness
+Lower inference latency and cost due to shorter prompts
+Tuning is charged per million training tokens. Training tokens are calculated by the total number of tokens in your training dataset, multiplied by your number of epochs. For model inference, Gemini tuned model endpoint has the same prediction price as the base model.
+Model
+Type
+Price (/1M training tokens)
+Gemini 2.5 Pro
+Supervised fine-tuning
+$25
+Gemini 2.5 Flash
+Supervised fine-tuning
+$5
+Gemini 2.5 Flash Lite
+Supervised fine-tuning
+$1.5
+Gemma 3 27B IT
+Supervised fine-tuning
+$6.83
+Llama 3.1 8B
+Supervised fine-tuning
+$0.67
+Llama 3.2 1B
+Supervised fine-tuning
+$0.28
+Llama 3.2 3B
+Supervised fine-tuning
+$0.61
+Llama 3.3 70B
+Supervised fine-tuning
+$6.72
+Llama 4 Scout 17B 16E
+Supervised fine-tuning
+$5.77
+Qwen 3 32B
+Supervised fine-tuning
+$6.57
+* Training tokens are calculated by the total number of tokens in your training dataset, multiplied by your number of epochs.
+* A Gemini tuned model endpoint has the same prediction price as the base model.
+Compare pricing for partner models on Vertex AI
+Partner models are a curated list of generative AI models developed by
+Google partners. Partner models are offered as managed APIs. For more
+information, see
+Overview of partner models
+.
+The following sections list pricing details for Google partner models.
+AI21 Lab's models
+Model
+Pricing
+Jamba 1.5 Large (Deprecated)
+Input: $2 / million tokens
+Output: $8 / million tokens
+Jamba 1.5 Mini (Deprecated)
+Input: $0.20 / million tokens
+Output: $0.40 / million tokens
+Anthropic’s Claude models
+Models with regional pricing
+Global
+Model
+Price (/1M tokens) < 200K input tokens
+Price (/1M tokens) >= 200K input tokens
+Claude Sonnet 4.5
+Input: $3.00
+Output: $15.00
+Batch Input: $1.50
+Batch Output: $7.50
+Cache Write: $3.75
+Cache Hit: $0.30
+Batch Cache Write: $1.88
+Batch Cache Hit: $0.15
+Input: $6.00
+Output: $22.50
+Batch Input: $3.00
+Batch Output: $11.25
+Cache Write: $7.50
+Cache Hit: $0.60
+Batch Cache Write: $3.75
+Batch Cache Hit: $0.30
+Claude Haiku 4.5
+Input: $1.00
+Output: $5.00
+Batch Input: $0.50
+Batch Output: $2.50
+Cache Write: $1.25
+Cache Hit: $0.10
+Batch Cache Write: $0.625
+Batch Cache Hit: $0.05
+us-east5
+Model
+Price (/1M tokens) < 200K input tokens
+Price (/1M tokens) >= 200K input tokens
+Claude Sonnet 4.5
+Input: $3.30
+Output: $16.50
+Batch Input: $1.65
+Batch Output: $8.25
+Cache Write: $4.13
+Cache Hit: $0.33
+Batch Cache Write: $2.06
+Batch Cache Hit: $0.17
+Input: $6.60
+Output: $24.75
+Batch Input: $3.30
+Batch Output: $12.38
+Cache Write: $8.25
+Cache Hit: $0.66
+Batch Cache Write: $4.13
+Batch Cache Hit: $0.33
+Claude Haiku 4.5
+Input: $1.10
+Output: $5.50
+Batch Input: $0.55
+Batch Output: $2.75
+Cache Write: $1.375
+Cache Hit: $0.11
+Batch Cache Write: $0.688
+Batch Cache Hit: $0.055
+europe-west1
+Model
+Price (/1M tokens) < 200K input tokens
+Price (/1M tokens) >= 200K input tokens
+Claude Sonnet 4.5
+Input: $3.30
+Output: $16.50
+Batch Input: $1.65
+Batch Output: $8.25
+Cache Write: $4.13
+Cache Hit: $0.33
+Batch Cache Write: $2.06
+Batch Cache Hit: $0.17
+Input: $6.60
+Output: $24.75
+Batch Input: $3.30
+Batch Output: $12.38
+Cache Write: $8.25
+Cache Hit: $0.66
+Batch Cache Write: $4.13
+Batch Cache Hit: $0.33
+Claude Haiku 4.5
+Input: $1.10
+Output: $5.50
+Batch Input: $0.55
+Batch Output: $2.75
+Cache Write: $1.375
+Cache Hit: $0.11
+Batch Cache Write: $0.688
+Batch Cache Hit: $0.055
+asia-southeast1
+Model
+Price (/1M tokens) < 200K input tokens
+Price (/1M tokens) >= 200K input tokens
+Claude Sonnet 4.5
+Input: $3.30
+Output: $16.50
+Batch Input: $1.65
+Batch Output: $8.25
+Cache Write: $4.13
+Cache Hit: $0.33
+Batch Cache Write: $2.06
+Batch Cache Hit: $0.17
+Input: $6.60
+Output: $24.75
+Batch Input: $3.30
+Batch Output: $12.38
+Cache Write: $8.25
+Cache Hit: $0.66
+Batch Cache Write: $4.13
+Batch Cache Hit: $0.33
+asia-east1
+Model
+Price (/1M tokens) < 200K input tokens
+Price (/1M tokens) >= 200K input tokens
+Claude Haiku 4.5
+Input: $1.10
+Output: $5.50
+Batch Input: $0.55
+Batch Output: $2.75
+Cache Write: $1.375
+Cache Hit: $0.11
+Batch Cache Write: $0.688
+Batch Cache Hit: $0.055
+* If a query input context is longer than or equal to 200K tokens, all tokens (input and output) are charged at long context rates.
+Models with uniform pricing across all regions
+Model
+Price (/1M tokens) < 200K input tokens
+Price (/1M tokens) >= 200K input tokens
+Claude Opus 4.1
+Input: $15
+Output: $75
+Batch Input: $7.50
+Batch Output: $37.50
+Cache Write: $18.75
+Cache Hit: $1.50
+Batch Cache Write: $9.375
+Batch Cache Hit: $0.75
+N/A
+Claude Opus 4
+Input: $15
+Output: $75
+Batch Input: $7.50
+Batch Output: $37.50
+Cache Write: $18.75
+Cache Hit: $1.50
+Batch Cache Write: $9.375
+Batch Cache Hit: $0.75
+N/A
+Claude Sonnet 4
+Input: $3
+Output: $15
+Batch Input: $1.50
+Batch Output: $7.50
+Cache Write: $3.75
+Cache Hit: $0.30
+Batch Cache Write: $1.875
+Batch Cache Hit: $0.15
+Input: $6
+Output: $22.50
+Batch Input: $3
+Batch Output: $11.25
+Cache Write: $7.50
+Cache Hit: $0.60
+Batch Cache Write: $3.75
+Batch Cache Hit: $0.30
+Claude 3.7 Sonnet
+Input: $3
+Output: $15
+Batch Input: $1.50
+Batch Output: $7.50
+Cache Write: $3.75
+Cache Hit: $0.30
+Batch Cache Write: $1.875
+Batch Cache Hit: $0.15
+N/A
+Claude 3.5 Haiku
+Input: $0.80
+Output: $4
+Batch Input: $0.40
+Batch Output: $2
+Cache Write: $1
+Cache Hit: $0.08
+Batch Cache Write: $0.50
+Batch Cache Hit: $0.04
+N/A
+Claude 3 Haiku
+Input: $0.25
+Output: $1.25
+Cache Write: $0.30
+Cache Hit: $0.03
+N/A
+Claude 3.5 Sonnet v2 (Deprecated)
+Input: $3
+Output: $15
+Batch Input: $1.50
+Batch Output: $7.50
+Cache Write: $3.75
+Cache Hit: $0.30
+Batch Cache Write: $1.875
+Batch Cache Hit: $0.15
+N/A
+Claude 3.5 Sonnet (Deprecated)
+Input: $3
+Output: $15
+Cache Write: $3.75
+Cache Hit: $0.30
+N/A
+Claude 3 Opus (deprecated)
+Input: $15
+Output: $75
+Cache Write: $18.75
+Cache Hit: $1.50
+N/A
+* If a query input context is longer than or equal to 200K tokens, all tokens (input and output) are charged at long context rates.
+Pricing for tools
+Tool
+Price
+Web Search Request
+$10 per 1000 searches
+Models Supported: Claude Haiku 4.5, Claude Sonnet 4.5, Claude Sonnet 4, Claude Opus 4.1, and Claude Opus 4.
+* If a query input context is longer than or equal to 200K tokens, all tokens (input and output) are charged at long context rates.
+Deepseek's models
+Model
+Pricing
+DeepSeek-V3.1
+Input: $0.60 / million tokens
+Output: $1.70 / million tokens
+Batch Input: $0.30 / million tokens
+Batch Output: $0.85 / million tokens
+DeepSeek-R1 (0528)
+Input: $1.35 / million tokens
+Output: $5.40 / million tokens
+Batch Input: $0.675 / million tokens
+Batch Output: $2.70 / million tokens
+DeepSeek-OCR *
+Input: $0.30 / million tokens (or $0.0003/page)
+Output: $1.20 / million tokens (or $0.00012/page)
+Available at no charge until Nov 10, 2025.
+MiniMax's models
+Model
+Pricing
+MiniMax-M2 *
+Input: $0.30 / million tokens
+Output: $1.20 / million tokens
+Available at no charge until Nov 10, 2025.
+Qwen's models
+Model
+Pricing
+Qwen3-Next-80B-Thinking
+Input: $0.15 / million tokens
+Output: $1.20 / million tokens
+Qwen3-Next-80B-Instruct
+Input: $0.15 / million tokens
+Output: $1.20 / million tokens
+Qwen3-Coder-480B-A35B-Instruct
+Input: $1.00 / million tokens
+Output: $4.00 / million tokens
+Batch Input: $0.50 / million tokens
+Batch Output: $2.00 / million tokens
+Qwen3-235B-A22B-Instruct-2507
+Input: $0.25 / million tokens
+Output: $1.00 / million tokens
+Batch Input: $0.125 / million tokens
+Batch Output: $0.50 / million tokens
+OpenAI's models
+Model
+Pricing
+gpt-oss-120b
+Input: $0.09 / million tokens
+Output: $0.36 / million tokens
+Batch Input: $0.045 / million tokens
+Batch Output: $0.18 / million tokens
+gpt-oss-20b
+Input: $0.07 / million tokens
+Output: $0.25 / million tokens
+Batch Input: $0.035 / million tokens
+Batch Output: $0.125 / million tokens
+Meta's Llama models
+Model
+Pricing
+Llama 3.1 405B
+Input: $5.00 / million tokens
+Output: $16.00 / million tokens
+Llama 3.3 70B
+Input: $0.72 / million tokens
+Output: $0.72 / million tokens
+Batch Input: $0.36 / million tokens
+Batch Output: $0.36 / million tokens
+Llama 4 Scout
+Input: $0.25 / million tokens
+Output: $0.70 / million tokens
+Batch Input: $0.125 / million tokens
+Batch Output: $0.35 / million tokens
+Llama 4 Maverick
+Input: $0.35 / million tokens
+Output: $1.15 / million tokens
+Batch Input: $0.175 / million tokens
+Batch Output: $0.575 / million tokens
+Mistral AI’s models
+Model
+Pricing
+Mistral OCR (25.05)
+Input: $0.0005 / million tokens (or $0.0005/page)
+Output: $0.0005 / million tokens (or $0.0005/page)
+Mistral Medium 3
+Input: $0.40 / million tokens
+Output: $2.00 / million tokens
+Mistral Small 3.1 (25.03)
+Input: $0.10 / million tokens
+Output: $0.30 / million tokens
+Mistral Large (24.11) (deprecated)
+Input: $2.00 / million tokens
+Output: $6.00 / million tokens
+Codestral 2
+Input: $0.30 / million tokens
+Output: $0.90 / million tokens
+Codestral (25.01) (deprecated)
+Input: $0.30 / million tokens
+Output: $0.90 / million tokens
+Request a custom quote
+With Google Cloud's pay-as-you-go pricing, you only pay for the services you
+use. Connect with our sales team to get a custom quote for your organization.
+Contact sales

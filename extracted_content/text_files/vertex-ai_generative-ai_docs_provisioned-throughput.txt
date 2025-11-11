@@ -1,0 +1,50 @@
+URL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/provisioned-throughput
+================================================================================
+
+Home
+Technology areas
+Generative AI on Vertex AI
+Documentation
+Send feedback
+Provisioned Throughput overview
+Stay organized with collections
+Save and categorize content based on your preferences.
+This page explains what Provisioned Throughput is and when to use Provisioned Throughput.
+Introduction to Provisioned Throughput
+Provisioned Throughput is a fixed-cost, fixed-term subscription
+available in several term-lengths that reserves throughput for
+supported generative AI models
+on Vertex AI.
+To reserve your throughput, you must specify the model and
+available
+locations
+in which the model
+runs.
+When to use Provisioned Throughput
+If any of the following considerations apply to your use case, consider using
+Provisioned Throughput:
+You are building real-time generative AI production applications, such as
+chatbots and agents.
+Your critical workloads consistently require high throughput. Throughput
+measurement depends on the model.
+You want to provide a consistent and predictable experience for users of your
+applications.
+You want deterministic generative AI costs by paying a fixed monthly or weekly
+price with control of overages.
+Provisioned Throughput is one of two ways to consume your
+generative AI models. The second way is pay-as-you-go, which is also referred to
+as
+on-demand
+.
+What's next
+Supported models
+using Provisioned Throughput.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2025-11-07 UTC.

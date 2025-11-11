@@ -1,0 +1,257 @@
+{
+  "extraction_date": "2025-11-11 14:28:13",
+  "main_page_url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-flash-live-api",
+  "total_pages_scraped": 50,
+  "pages": [
+    {
+      "url": "https://docs.cloud.google.com/static/vertex-ai/generative-ai/docs/medlm/MedLM-model-card.pdf",
+      "text_file": "text_files/static_vertex-ai_generative-ai_docs_medlm_MedLM-model-card.pdf.txt",
+      "json_file": "json_files/static_vertex-ai_generative-ai_docs_medlm_MedLM-model-card.pdf.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs",
+      "text_file": "text_files/vertex-ai_generative-ai_docs.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_dynamic-shared-quota.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_dynamic-shared-quota.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/error-code-429",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_error-code-429.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_error-code-429.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-elasticsearch",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_grounding_grounding-with-elasticsearch.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_grounding_grounding-with-elasticsearch.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-google-maps",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_grounding_grounding-with-google-maps.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_grounding_grounding-with-google-maps.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-google-search",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_grounding_grounding-with-google-search.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_grounding_grounding-with-google-search.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-vertex-ai-search",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_grounding_grounding-with-vertex-ai-search.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_grounding_grounding-with-vertex-ai-search.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/overview",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_grounding_overview.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_grounding_overview.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/edit-controlled",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_edit-controlled.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_edit-controlled.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/edit-inpainting",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_edit-inpainting.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_edit-inpainting.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/generate-images",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_generate-images.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_generate-images.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/img-gen-prompt-guide",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_img-gen-prompt-guide.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_img-gen-prompt-guide.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/model-versioning",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_model-versioning.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_model-versioning.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/quickstart-image-generate-console",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_quickstart-image-generate-console.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_quickstart-image-generate-console.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/responsible-ai-imagen",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_responsible-ai-imagen.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_responsible-ai-imagen.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/image/verify-watermark",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_image_verify-watermark.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_image_verify-watermark.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_live-api.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_live-api.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api/best-practices",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_live-api_best-practices.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_live-api_best-practices.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api/proactive-audio",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_live-api_proactive-audio.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_live-api_proactive-audio.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api/streamed-conversations",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_live-api_streamed-conversations.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_live-api_streamed-conversations.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api/tools",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_live-api_tools.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_live-api_tools.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/maas/deepseek/r1-0528",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_maas_deepseek_r1-0528.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_maas_deepseek_r1-0528.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-garden/explore-models",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_model-garden_explore-models.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_model-garden_explore-models.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/code-execution-api",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_model-reference_code-execution-api.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_model-reference_code-execution-api.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/function-calling",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_model-reference_function-calling.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_model-reference_function-calling.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/model-reference/multimodal-live",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_model-reference_multimodal-live.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_model-reference_multimodal-live.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/evaluation-overview",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_evaluation-overview.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_evaluation-overview.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-0-flash",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_gemini_2-0-flash.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_gemini_2-0-flash.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-0-flash-lite",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_gemini_2-0-flash-lite.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_gemini_2-0-flash-lite.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-flash",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_gemini_2-5-flash.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_gemini_2-5-flash.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/gemini/2-5-flash-live-api",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_gemini_2-5-flash-live-api.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_gemini_2-5-flash-live-api.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/imagen/3-0-generate-002",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_imagen_3-0-generate-002.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_imagen_3-0-generate-002.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/imagen/4-0-fast-generate-001",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_imagen_4-0-fast-generate-001.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_imagen_4-0-fast-generate-001.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/imagen/4-0-ultra-generate-001",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_imagen_4-0-ultra-generate-001.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_imagen_4-0-ultra-generate-001.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/veo/2-0-generate",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_veo_2-0-generate.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_veo_2-0-generate.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models/veo/3-1-generate",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_models_veo_3-1-generate.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_models_veo_3-1-generate.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/multimodal/control-generated-output",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_multimodal_control-generated-output.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_multimodal_control-generated-output.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/multimodal/function-calling",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_multimodal_function-calling.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_multimodal_function-calling.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/open-models/xdit",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_open-models_xdit.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_open-models_xdit.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/partner-models/llama/llama3-3",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_partner-models_llama_llama3-3.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_partner-models_llama_llama3-3.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/partner-models/llama/llama4-scout",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_partner-models_llama_llama4-scout.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_partner-models_llama_llama4-scout.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/provisioned-throughput",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_provisioned-throughput.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_provisioned-throughput.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/reference/python/latest/vertexai.generative_models.Tool",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_reference_python_latest_vertexai.generative_models.Tool.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_reference_python_latest_vertexai.generative_models.Tool.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/libraries",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_start_libraries.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_start_libraries.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_start_quickstarts_quickstart-multimodal.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_start_quickstarts_quickstart-multimodal.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/use-provisioned-throughput",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_use-provisioned-throughput.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_use-provisioned-throughput.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/docs/video/use-reference-images-to-guide-video-generation",
+      "text_file": "text_files/vertex-ai_generative-ai_docs_video_use-reference-images-to-guide-video-generation.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_docs_video_use-reference-images-to-guide-video-generation.json"
+    },
+    {
+      "url": "https://docs.cloud.google.com/vertex-ai/generative-ai/pricing",
+      "text_file": "text_files/vertex-ai_generative-ai_pricing.txt",
+      "json_file": "json_files/vertex-ai_generative-ai_pricing.json"
+    }
+  ]
+}

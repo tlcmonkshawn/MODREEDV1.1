@@ -1,0 +1,1007 @@
+URL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/grounding/grounding-with-google-search
+================================================================================
+
+Home
+Technology areas
+Generative AI on Vertex AI
+Documentation
+Send feedback
+Grounding with Google Search
+Stay organized with collections
+Save and categorize content based on your preferences.
+This page explains how to ground a model's responses using
+Google Search, which uses publicly-available web data. Also,
+Search suggestions are explained, which are included in
+your responses.
+Grounding with Google Search
+If you want to connect your model with world knowledge, a wide possible range of
+topics, or up-to-date information on the Internet, then use Grounding with Google Search.
+To learn more about model grounding in Vertex AI,
+see the
+Grounding overview
+.
+Supported models
+This section lists the models that support grounding with
+Search.
+Gemini 2.5 Flash
+(Preview)
+Gemini 2.5 Flash-Lite
+(Preview)
+Gemini 2.5 Flash-Lite
+Gemini 2.5 Flash with Live API native audio
+(Preview)
+Gemini 2.0 Flash with Live API
+(Preview)
+Gemini 2.5 Pro
+Gemini 2.5 Flash
+Gemini 2.0 Flash
+Supported languages
+For a list of supported languages, see
+Languages
+.
+Ground your model with Google Search
+Use the following instructions to ground a model with publicly available web
+data.
+Considerations
+To use grounding with Google Search, you must enable
+Google Search Suggestions. For more information, see
+Use Google Search suggestions
+.
+For ideal results, use a temperature of
+1.0
+. To learn more about setting
+this configuration, see the
+Gemini API request
+body
+from the model reference.
+Grounding with Google Search has a limit of one million queries per day. If
+you require more queries, contact
+Google Cloud support
+for assistance.
+Search results can be customized for a specific geographic location of the end
+user by using the latitude and longitude coordinates. For more information, see
+the
+Grounding
+API.
+Console
+To use Grounding with Google Search with the Vertex AI Studio, follow these steps:
+In the Google Cloud console, go to the
+Vertex AI Studio
+page.
+Go to
+Vertex AI Studio
+Click the
+Freeform
+tab.
+In the side panel, click the
+Ground model responses
+toggle.
+Click
+Customize
+and set Google Search as the source.
+Enter your prompt in the text box and click
+Submit
+.
+Your prompt responses now ground to Google Search.
+Python
+Install
+pip install --upgrade google-genai
+To learn more, see the
+SDK reference documentation
+.
+Set environment variables to use the Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export
+GOOGLE_CLOUD_PROJECT
+=
+GOOGLE_CLOUD_PROJECT
+export
+GOOGLE_CLOUD_LOCATION
+=
+global
+export
+GOOGLE_GENAI_USE_VERTEXAI
+=
+True
+from
+google
+import
+genai
+from
+google.genai.types
+import
+(
+GenerateContentConfig
+,
+GoogleSearch
+,
+HttpOptions
+,
+Tool
+,
+)
+client
+=
+genai
+.
+Client
+(
+http_options
+=
+HttpOptions
+(
+api_version
+=
+"v1"
+))
+response
+=
+client
+.
+models
+.
+generate_content
+(
+model
+=
+"gemini-2.5-flash"
+,
+contents
+=
+"When is the next total solar eclipse in the United States?"
+,
+config
+=
+GenerateContentConfig
+(
+tools
+=
+[
+# Use Google Search Tool
+Tool
+(
+google_search
+=
+GoogleSearch
+())
+],
+),
+)
+print
+(
+response
+.
+text
+)
+# Example response:
+# 'The next total solar eclipse in the United States will occur on ...'
+Go
+Learn how to install or update the
+Go
+.
+To learn more, see the
+SDK reference documentation
+.
+Set environment variables to use the Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export
+GOOGLE_CLOUD_PROJECT
+=
+GOOGLE_CLOUD_PROJECT
+export
+GOOGLE_CLOUD_LOCATION
+=
+global
+export
+GOOGLE_GENAI_USE_VERTEXAI
+=
+True
+import
+(
+"context"
+"fmt"
+"io"
+genai
+"google.golang.org/genai"
+)
+//
+generateWithGoogleSearch
+shows
+how
+to
+generate
+text
+using
+Google
+Search
+.
+func
+generateWithGoogleSearch
+(
+w
+io
+.
+Writer
+)
+error
+{
+ctx
+:=
+context
+.
+Background
+()
+client
+,
+err
+:=
+genai
+.
+NewClient
+(
+ctx
+,
+&
+genai
+.
+ClientConfig
+{
+HTTPOptions
+:
+genai
+.
+HTTPOptions
+{
+APIVersion
+:
+"v1"
+},
+})
+if
+err
+!=
+nil
+{
+return
+fmt
+.
+Errorf
+(
+"failed to create genai client: %w"
+,
+err
+)
+}
+modelName
+:=
+"gemini-2.5-flash"
+contents
+:=
+[]
+*
+genai
+.
+Content
+{
+{
+Parts
+:
+[]
+*
+genai
+.
+Part
+{
+{
+Text
+:
+"When is the next total solar eclipse in the United States?"
+},
+},
+Role
+:
+"user"
+},
+}
+config
+:=
+&
+genai
+.
+GenerateContentConfig
+{
+Tools
+:
+[]
+*
+genai
+.
+Tool
+{
+{
+GoogleSearch
+:
+&
+genai
+.
+GoogleSearch
+{}},
+},
+}
+resp
+,
+err
+:=
+client
+.
+Models
+.
+GenerateContent
+(
+ctx
+,
+modelName
+,
+contents
+,
+config
+)
+if
+err
+!=
+nil
+{
+return
+fmt
+.
+Errorf
+(
+"failed to generate content: %w"
+,
+err
+)
+}
+respText
+:=
+resp
+.
+Text
+()
+fmt
+.
+Fprintln
+(
+w
+,
+respText
+)
+//
+Example
+response
+:
+//
+The
+next
+total
+solar
+eclipse
+in
+the
+United
+States
+will
+occur
+on
+March
+30
+,
+2033
+,
+but
+it
+will
+only
+...
+return
+nil
+}
+Java
+Learn how to install or update the
+Java
+.
+To learn more, see the
+SDK reference documentation
+.
+Set environment variables to use the Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export
+GOOGLE_CLOUD_PROJECT
+=
+GOOGLE_CLOUD_PROJECT
+export
+GOOGLE_CLOUD_LOCATION
+=
+global
+export
+GOOGLE_GENAI_USE_VERTEXAI
+=
+True
+import
+com.google.genai.Client
+;
+import
+com.google.genai.types.GenerateContentConfig
+;
+import
+com.google.genai.types.GenerateContentResponse
+;
+import
+com.google.genai.types.GoogleSearch
+;
+import
+com.google.genai.types.HttpOptions
+;
+import
+com.google.genai.types.Tool
+;
+public
+class
+ToolsGoogleSearchWithText
+{
+public
+static
+void
+main
+(
+String
+[]
+args
+)
+{
+//
+TODO
+(
+developer
+):
+Replace
+these
+variables
+before
+running
+the
+sample
+.
+String
+modelId
+=
+"gemini-2.5-flash"
+;
+generateContent
+(
+modelId
+);
+}
+//
+Generates
+text
+with
+Google
+Search
+tool
+public
+static
+String
+generateContent
+(
+String
+modelId
+)
+{
+//
+Initialize
+client
+that
+will
+be
+used
+to
+send
+requests
+.
+This
+client
+only
+needs
+to
+be
+created
+//
+once
+,
+and
+can
+be
+reused
+for
+multiple
+requests
+.
+try
+(
+Client
+client
+=
+Client
+.
+builder
+()
+.
+location
+(
+"global"
+)
+.
+vertexAI
+(
+true
+)
+.
+httpOptions
+(
+HttpOptions
+.
+builder
+()
+.
+apiVersion
+(
+"v1"
+)
+.
+build
+())
+.
+build
+())
+{
+//
+Create
+a
+GenerateContentConfig
+and
+set
+Google
+Search
+tool
+GenerateContentConfig
+contentConfig
+=
+GenerateContentConfig
+.
+builder
+()
+.
+tools
+(
+Tool
+.
+builder
+()
+.
+googleSearch
+(
+GoogleSearch
+.
+builder
+()
+.
+build
+())
+.
+build
+())
+.
+build
+();
+GenerateContentResponse
+response
+=
+client
+.
+models
+.
+generateContent
+(
+modelId
+,
+"When is the next total solar eclipse in the United States?"
+,
+contentConfig
+);
+System
+.
+out
+.
+print
+(
+response
+.
+text
+());
+//
+Example
+response
+:
+//
+The
+next
+total
+solar
+eclipse
+in
+the
+United
+States
+will
+occur
+on
+...
+return
+response
+.
+text
+();
+}
+}
+}
+REST
+Before using any of the request data,
+make the following replacements:
+LOCATION
+: The region to process the request. To use the
+global endpoint
+, exclude the location from the endpoint name and configure the location of the resource to global.
+PROJECT_ID
+: Your
+project ID
+.
+MODEL_ID
+: The model ID of the multimodal model.
+TEXT
+:
+The text instructions to include in the prompt.
+EXCLUDE_DOMAINS
+: Optional: List of domains that aren't to be used for grounding.
+LATITUDE
+: Optional: The latitude of the end user's location. For example, a latitude of
+37.7749
+represents San Francisco. You can obtain latitude and longitude coordinates using services like Google Maps or other geocoding tools.
+LONGITUDE
+: Optional: The longitude of the end user's location. For example, a longitude of
+-122.4194
+represents San Francisco.
+HTTP method and URL:
+POST https://
+LOCATION
+-aiplatform.googleapis.com/v1/projects/
+PROJECT_ID
+/locations/
+LOCATION
+/publishers/google/models/
+MODEL_ID
+:generateContent
+Request JSON body:
+{
+"contents": [{
+"role": "user",
+"parts": [{
+"text": "
+TEXT
+"
+}]
+}],
+"tools": [{
+"googleSearch": {
+"exclude_domains": [ "domain.com", "domain2.com" ]
+}
+}],
+"toolConfig": {
+"retrievalConfig": {
+"latLng": {
+"latitude":
+LATITUDE
+,
+"longitude":
+LONGITUDE
+}
+}
+},
+"model": "projects/
+PROJECT_ID
+/locations/
+LOCATION
+/publishers/google/models/
+MODEL_ID
+"
+}
+To send your request, expand one of these options:
+curl (Linux, macOS, or Cloud Shell)
+Save the request body in a file named
+request.json
+,
+and execute the following command:
+curl -X POST \
+-H "Authorization: Bearer $(gcloud auth print-access-token)" \
+-H "Content-Type: application/json; charset=utf-8" \
+-d @request.json \
+"https://
+LOCATION
+-aiplatform.googleapis.com/v1/projects/
+PROJECT_ID
+/locations/
+LOCATION
+/publishers/google/models/
+MODEL_ID
+:generateContent"
+PowerShell (Windows)
+Save the request body in a file named
+request.json
+,
+and execute the following command:
+$cred = gcloud auth print-access-token
+$headers = @{ "Authorization" = "Bearer $cred" }
+Invoke-WebRequest `
+-Method POST `
+-Headers $headers `
+-ContentType: "application/json; charset=utf-8" `
+-InFile request.json `
+-Uri "https://
+LOCATION
+-aiplatform.googleapis.com/v1/projects/
+PROJECT_ID
+/locations/
+LOCATION
+/publishers/google/models/
+MODEL_ID
+:generateContent" | Select-Object -Expand Content
+You should receive a JSON response similar to the following:
+{
+"candidates": [
+{
+"content": {
+"role": "model",
+"parts": [
+{
+"text": "The weather in Chicago this weekend, will be partly cloudy. The temperature will be between 49°F (9°C) and 55°F (13°C) on Saturday and between 51°F (11°C) and 56°F (13°C) on Sunday. There is a slight chance of rain on both days.\n"
+}
+]
+},
+"finishReason": "STOP",
+"groundingMetadata": {
+"webSearchQueries": [
+"weather in Chicago this weekend"
+],
+"searchEntryPoint": {
+"renderedContent": "..."
+},
+"groundingChunks": [
+{
+"web": {
+"uri": "https://www.google.com/search?q=weather+in+Chicago,+IL",
+"title": "Weather information for locality: Chicago, administrative_area: IL",
+"domain": "google.com"
+}
+},
+{
+"web": {
+"uri": "...",
+"title": "weatherbug.com",
+"domain": "weatherbug.com"
+}
+}
+],
+"groundingSupports": [
+{
+"segment": {
+"startIndex": 85,
+"endIndex": 214,
+"text": "The temperature will be between 49°F (9°C) and 55°F (13°C) on Saturday and between 51°F (11°C) and 56°F (13°C) on Sunday."
+},
+"groundingChunkIndices": [
+0
+],
+"confidenceScores": [
+0.8662828
+]
+},
+{
+"segment": {
+"startIndex": 215,
+"endIndex": 261,
+"text": "There is a slight chance of rain on both days."
+},
+"groundingChunkIndices": [
+1,
+0
+],
+"confidenceScores": [
+0.62836814,
+0.6488607
+]
+}
+],
+"retrievalMetadata": {}
+}
+}
+],
+"usageMetadata": {
+"promptTokenCount": 10,
+"candidatesTokenCount": 98,
+"totalTokenCount": 108,
+"trafficType": "ON_DEMAND",
+"promptTokensDetails": [
+{
+"modality": "TEXT",
+"tokenCount": 10
+}
+],
+"candidatesTokensDetails": [
+{
+"modality": "TEXT",
+"tokenCount": 98
+}
+]
+},
+"modelVersion": "gemini-2.0-flash",
+"createTime": "2025-05-19T14:42:55.000643Z",
+"responseId": "b0MraIMFoqnf-Q-D66G4BQ"
+}
+Understand your response
+If your model prompt successfully grounds to Google Search from the
+Vertex AI Studio or from the API, then the responses include metadata with
+source links (web URLs). However, there are several reasons this metadata might
+not be provided, and the prompt response won't be grounded. These reasons
+include low source relevance or incomplete information within the model's
+response.
+Grounding support
+Displaying grounding support is required, because it aids you in validating
+responses from the publishers and adds avenues for further learning.
+Grounding support for responses from Google Search sources should be shown
+both inline and in aggregate. For example, see the following image as a
+suggestion on how to do this.
+Use of alternative search engine options
+When using Grounding with Google Search a Customer Application can:
+Offer alternative search engine options,
+Make other search engines the default option,
+Display their own or third-party search suggestions or search results as long
+as: any non-Google results must be displayed separately from Google's Grounded
+Results and Search Suggestions, and shown in a way that does not confuse
+users or suggest they are from Google.
+Benefits
+The following complex prompts and workflows that require planning, reasoning,
+and thinking can be done when you use Google Search as a tool:
+You can ground to help ensure responses are based on the latest and most
+accurate information.
+You can retrieve artifacts from the web to do analysis.
+You can find relevant images, videos, or other media to assist in multimodal
+reasoning or task generation.
+You can perform coding, technical troubleshooting, and other specialized
+tasks.
+You can find region-specific information, or assist in translating content
+accurately.
+You can find relevant websites for browsing.
+Use Google Search suggestions
+When you use grounding with Google Search, and you receive
+Search suggestions in your response, you must display the
+Search suggestions in production and in your applications.
+For more information on grounding with Google Search, see
+Grounding with Google Search
+.
+Specifically, you must display the search queries that are included in the
+grounded response's metadata. The response includes:
+"content"
+: LLM-generated response.
+"webSearchQueries"
+: The queries to be used for
+Search suggestions.
+For example, in the following code snippet, Gemini responds to a
+Search grounded prompt, which is asking about a type of
+tropical plant.
+"predictions"
+:
+[
+{
+"content"
+:
+"Monstera is a type of vine that thrives in bright indirect light…"
+,
+"groundingMetadata"
+:
+{
+"webSearchQueries"
+:
+[
+"What's a monstera?"
+],
+}
+}
+]
+You can take this output, and display it by using Search
+suggestions.
+Requirements for Search suggestions
+The following are requirements for suggestions:
+Requirement
+Description
+Do
+While complying with the
+display
+requirements
+, the Search suggestion is displayed exactly as provided without any changes.
+When you interact with the Search suggestion, you are
+taken directly to the Search results page (SRP).
+Don't
+Include any screens or additional steps between the user's tap and the display
+of the SRP.
+Display any other search results or suggestions next to the
+Search suggestion or the associated grounded LLM
+response.
+Display requirements
+The following are the display requirements:
+Display the Search suggestion exactly as provided, and
+don't make any modifications to colors, fonts, or appearance. Ensure the
+Search suggestion renders as specified in the following
+mocks such as light and dark mode:
+Whenever a grounded response is shown, its corresponding
+Search suggestion should remain visible.
+For branding, you must strictly follow Google's guidelines for third-party use
+of Google brand features at the
+Welcome to our Brand Resource
+Center
+.
+When you use grounding with Search,
+Search suggestion chips display. The field that contains
+the suggestion chips must be the same width as the grounded response from the
+LLM.
+Behavior on tap
+When a user taps the chip, they are taken directly to a
+Search results page (SRP) for the search term displayed in
+the chip. The SRP can open either within your in-application browser or in a
+separate browser application. It's important to not minimize, remove, or
+obstruct the SRP's display in any way. The following animated mockup illustrates
+the tap-to-SRP interaction.
+Code to implement a Search suggestion
+When you use the API to ground a response to search, the model response provides
+compliant HTML and CSS styling in the
+renderedContent
+field, which you
+implement to display Search suggestions in your
+application.
+What's next
+To learn more about grounding, see
+Grounding overview
+.
+To learn how to send chat prompt requests, see
+Multiturn chat
+.
+To learn about responsible AI best practices and Vertex AI's safety filters,
+see
+Safety best practices
+.
+Learn how to
+send chat prompt requests
+.
+Learn about
+responsible AI best practices and Vertex AI safety filters
+.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2025-11-07 UTC.

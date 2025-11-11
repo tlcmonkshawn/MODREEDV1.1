@@ -1,0 +1,736 @@
+URL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/use-provisioned-throughput
+================================================================================
+
+Home
+Technology areas
+Generative AI on Vertex AI
+Documentation
+Send feedback
+Use Provisioned Throughput
+Stay organized with collections
+Save and categorize content based on your preferences.
+This page explains how Provisioned Throughput works, how to control
+overages or bypass Provisioned Throughput, and how to monitor usage.
+How Provisioned Throughput works
+This section explains how Provisioned Throughput works by using
+quota checking through the quota enforcement period.
+Provisioned Throughput quota checking
+Your Provisioned Throughput maximum quota is a multiple of the
+number of generative AI scale units (GSUs) purchased and the throughput per GSU.
+It's checked each time you make a request within your
+quota enforcement
+period
+, which is how frequently the maximum Provisioned Throughput
+quota is enforced.
+At the time a request is received, the true response size is unknown. Because we
+prioritize speed of response for real-time applications,
+Provisioned Throughput estimates the output token size. If the
+initial estimate exceeds the available Provisioned Throughput
+maximum quota, the request is processed as pay-as-you-go. Otherwise, it is
+processed as Provisioned Throughput. This is done by comparing the
+initial estimate to your Provisioned Throughput maximum quota.
+When the response is generated and the true output token size is known, actual
+usage and quota are reconciled by adding the difference between the estimate and
+the actual usage to your available Provisioned Throughput quota
+amount.
+Provisioned Throughput quota enforcement period
+For Gemini models, the
+quota enforcement period can take up to 30 seconds and is subject to change.
+This means that you might temporarily experience prioritized traffic that
+exceeds your quota amount on a per-second basis in some cases, but you shouldn't
+exceed your quota on a 30-second basis. These periods are based on the
+Vertex AI internal clock time and are independent of when requests are
+made.
+For example, if you purchase one GSU of
+gemini-2.0-flash-001
+, then you
+should expect 3,360 tokens per second of always-on throughput. On average, you
+can't exceed 100,800 tokens on a 30-second basis, which is calculated using
+the following formula:
+3,360 tokens per second * 30 seconds = 100,800 tokens
+If, in a day, you submitted only one request that consumed 8,000 tokens in a
+second, it might still be processed as a Provisioned Throughput
+request, even though you exceeded your 3,360 tokens per second limit at the time
+of the request. This is because the request didn't exceed the threshold of
+100,800 tokens per 30 seconds.
+Control overages or bypass Provisioned Throughput
+Use the API to control overages when you exceed your purchased throughput
+or to bypass Provisioned Throughput on a per-request basis.
+Read through each option to determine what you must do to meet your use case.
+Default behavior
+If you exceed your purchased amount of throughput, the overages go to on-demand
+and are billed at the
+pay-as-you-go rate
+. After your
+Provisioned Throughput order is active, the default behavior takes place
+automatically. You don't have to change your code to begin consuming your
+order as long as you are consuming it in the region provisioned.
+Use only Provisioned Throughput
+If you are managing costs by avoiding on-demand charges, use only
+Provisioned Throughput. Requests which exceed the
+Provisioned Throughput order amount return an
+error
+429
+.
+When sending requests to the API, set the
+X-Vertex-AI-LLM-Request-Type
+HTTP
+header to
+dedicated
+.
+Use only pay-as-you-go
+This is also referred to as using on-demand. Requests bypass the Provisioned Throughput
+order and are sent directly to pay-as-you-go. This might be useful
+for experiments or applications that are in development.
+When sending requests to the API, set the
+X-Vertex-AI-LLM-Request-Type
+HTTP header to
+shared
+.
+Example
+Python
+Install
+pip install --upgrade google-genai
+To learn more, see the
+SDK reference documentation
+.
+Set environment variables to use the Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export
+GOOGLE_CLOUD_PROJECT
+=
+GOOGLE_CLOUD_PROJECT
+export
+GOOGLE_CLOUD_LOCATION
+=
+global
+export
+GOOGLE_GENAI_USE_VERTEXAI
+=
+True
+from
+google
+import
+genai
+from
+google.genai.types
+import
+HttpOptions
+client
+=
+genai
+.
+Client
+(
+http_options
+=
+HttpOptions
+(
+api_version
+=
+"v1"
+,
+headers
+=
+{
+# Options:
+# - "dedicated": Use Provisioned Throughput
+# - "shared": Use pay-as-you-go
+# https://cloud.google.com/vertex-ai/generative-ai/docs/use-provisioned-throughput
+"X-Vertex-AI-LLM-Request-Type"
+:
+"shared"
+},
+)
+)
+response
+=
+client
+.
+models
+.
+generate_content
+(
+model
+=
+"gemini-2.5-flash"
+,
+contents
+=
+"How does AI work?"
+,
+)
+print
+(
+response
+.
+text
+)
+# Example response:
+# Okay, let's break down how AI works. It's a broad field, so I'll focus on the ...
+#
+# Here's a simplified overview:
+# ...
+Go
+Learn how to install or update the
+Go
+.
+To learn more, see the
+SDK reference documentation
+.
+Set environment variables to use the Gen AI SDK with Vertex AI:
+# Replace the `GOOGLE_CLOUD_PROJECT` and `GOOGLE_CLOUD_LOCATION` values
+# with appropriate values for your project.
+export
+GOOGLE_CLOUD_PROJECT
+=
+GOOGLE_CLOUD_PROJECT
+export
+GOOGLE_CLOUD_LOCATION
+=
+global
+export
+GOOGLE_GENAI_USE_VERTEXAI
+=
+True
+import
+(
+"context"
+"fmt"
+"io"
+"net/http"
+"google.golang.org/genai"
+)
+//
+generateText
+shows
+how
+to
+generate
+text
+Provisioned
+Throughput
+.
+func
+generateText
+(
+w
+io
+.
+Writer
+)
+error
+{
+ctx
+:=
+context
+.
+Background
+()
+client
+,
+err
+:=
+genai
+.
+NewClient
+(
+ctx
+,
+&
+genai
+.
+ClientConfig
+{
+HTTPOptions
+:
+genai
+.
+HTTPOptions
+{
+APIVersion
+:
+"v1"
+,
+Headers
+:
+http
+.
+Header
+{
+//
+Options
+:
+//
+-
+"dedicated"
+:
+Use
+Provisioned
+Throughput
+//
+-
+"shared"
+:
+Use
+pay
+-
+as
+-
+you
+-
+go
+//
+https
+:
+//
+cloud
+.
+google
+.
+com
+/
+vertex
+-
+ai
+/
+generative
+-
+ai
+/
+docs
+/
+use
+-
+provisioned
+-
+throughput
+"X-Vertex-AI-LLM-Request-Type"
+:
+[]
+string
+{
+"shared"
+},
+},
+},
+})
+if
+err
+!=
+nil
+{
+return
+fmt
+.
+Errorf
+(
+"failed to create genai client: %w"
+,
+err
+)
+}
+modelName
+:=
+"gemini-2.5-flash"
+contents
+:=
+genai
+.
+Text
+(
+"How does AI work?"
+)
+resp
+,
+err
+:=
+client
+.
+Models
+.
+GenerateContent
+(
+ctx
+,
+modelName
+,
+contents
+,
+nil
+)
+if
+err
+!=
+nil
+{
+return
+fmt
+.
+Errorf
+(
+"failed to generate content: %w"
+,
+err
+)
+}
+respText
+:=
+resp
+.
+Text
+()
+fmt
+.
+Fprintln
+(
+w
+,
+respText
+)
+//
+Example
+response
+:
+//
+Artificial
+Intelligence
+(
+AI
+)
+isn
+'t magic, nor is it a single "thing." Instead, it'
+s
+a
+broad
+field
+of
+computer
+science
+focused
+on
+creating
+machines
+that
+can
+perform
+tasks
+that
+typically
+require
+human
+intelligence
+.
+//
+.....
+//
+In
+Summary
+:
+//
+...
+return
+nil
+}
+REST
+After you
+set up your environment
+,
+you can use REST to test a text prompt. The following sample sends a request to the publisher
+model endpoint.
+curl
+-X
+POST
+\
+-H
+"Authorization: Bearer
+$(
+gcloud
+auth
+print-access-token
+)
+"
+\
+-H
+"Content-Type: application/json"
+\
+-H
+"X-Vertex-AI-LLM-Request-Type: dedicated"
+\
+# Options: dedicated, shared
+$URL
+\
+-d
+'{"contents": [{"role": "user", "parts": [{"text": "Hello."}]}]}'
+Use Provisioned Throughput with an API Key
+If you've purchased Provisioned Throughput for a specific project,
+Google model, and region, and want to use it to send a request with an API key,
+then you must include the project ID, model, location, and API key as parameters
+in your request.
+For information about how to create a Google Cloud API key bound to a
+service account, see
+Get a Google Cloud API key
+.
+To learn how to send requests to the Gemini API using an API key, see
+the
+GeminiAPI in Vertex AI quickstart
+.
+For example, the following sample shows
+how to submit a request with an API key while using Provisioned Throughput:
+REST
+After you
+set up your environment
+,
+you can use REST to test a text prompt. The following sample sends a request to the publisher
+model endpoint.
+curl
+\
+-X
+POST
+\
+-H
+"Content-Type: application/json"
+\
+"https://aiplatform.googleapis.com/v1/projects/
+PROJECT_ID
+/locations/
+LOCATION
+/publishers/google/models/
+MODEL_ID
+:generateContent?key=
+YOUR_API_KEY
+"
+\
+-d
+$'{
+"contents": [
+{
+"role": "user",
+"parts": [
+{
+"text": "Explain how AI works in a few words"
+}
+]
+}
+]
+}'
+Monitor Provisioned Throughput
+You can self-monitor your Provisioned Throughput usage using a set
+of metrics that are measured on the
+aiplatform.googleapis.com/PublisherModel
+resource type.
+Provisioned Throughput traffic monitoring is a public Preview
+feature.
+Dimensions
+You can filter on metrics using the following dimensions:
+Dimension
+Values
+type
+input
+output
+request_type
+dedicated
+: Traffic is processed using Provisioned Throughput.
+spillover
+: Traffic is processed as
+pay-as-you-go quota after you exceed your Provisioned Throughput
+quota.
+shared
+: If Provisioned Throughput is active,
+then traffic is processed as pay-as-you-go quota using the shared
+HTTP header
+.
+If Provisioned Throughput isn't active, then traffic is
+processed as pay-as-you-go, by default.
+Path prefix
+The path prefix for a metric is
+aiplatform.googleapis.com/publisher/online_serving
+.
+For example, the full path for the
+/consumed_throughput
+metric is
+aiplatform.googleapis.com/publisher/online_serving/consumed_throughput
+.
+Metrics
+The following Cloud Monitoring metrics are available on the
+aiplatform.googleapis.com/PublisherModel
+resource for the
+Gemini models. Use the
+dedicated
+request types to filter for
+Provisioned Throughput usage.
+Metric
+Display name
+Description
+/dedicated_gsu_limit
+Limit (GSU)
+Dedicated limit in GSUs. Use this metric to understand your Provisioned Throughput maximum quota in GSUs.
+/tokens
+Tokens
+Input and output token count distribution.
+/token_count
+Token count
+Accumulated input and output token count.
+/consumed_token_throughput
+Token throughput
+Throughput usage, which accounts for the burndown rate in tokens and incorporates quota reconciliation. See
+Provisioned Throughput quota checking
+.
+Use this metric to understand how your Provisioned Throughput quota was used.
+/dedicated_token_limit
+Limit (tokens per second)
+Dedicated limit in tokens per second. Use this metric to understand your Provisioned Throughput maximum quota for token-based models.
+/characters
+Characters
+Input and output character count distribution.
+/character_count
+Character count
+Accumulated input and output character count.
+/consumed_throughput
+Character throughput
+Throughput usage, which accounts for the burndown rate in characters and incorporates quota reconciliation
+Provisioned Throughput quota checking
+.
+Use this metric to understand how your Provisioned Throughput quota was used.
+For token-based models, this metric is equivalent to the throughput consumed in tokens multiplied by 4.
+/dedicated_character_limit
+Limit (characters per second)
+Dedicated limit in characters per second. Use this metric to understand your Provisioned Throughput maximum quota for character-based models.
+/model_invocation_count
+Model invocation count
+Number of model invocations (prediction requests).
+/model_invocation_latencies
+Model invocation latencies
+Model invocation latencies (prediction latencies).
+/first_token_latencies
+First token latencies
+Duration from request received to first token returned.
+Anthropic models also have a filter for Provisioned Throughput but
+only for
+tokens
+and
+token_count
+.
+Dashboards
+Default monitoring dashboards for Provisioned Throughput provide
+metrics
+that let you better understand your usage and
+Provisioned Throughput utilization. To access the dashboards, do the
+following:
+In the Google Cloud console, go to the
+Provisioned Throughput
+page.
+Go to Provisioned Throughput
+To view the Provisioned Throughput utilization of each model
+across your orders, select the
+Utilization summary
+tab.
+In the
+Provisioned Throughput utilization by model
+table, you can view
+the following for the selected time range:
+Total number of GSUs you had.
+Peak throughput usage in terms of GSUs.
+The average GSU utilization.
+The number of times you reached your Provisioned Throughput limit.
+Select a model from the
+Provisioned Throughput utilization by
+model
+table to see more metrics specific to the selected model.
+Limitations of the dashboard
+The dashboard might display unexpected results, especially for fluctuating
+traffic that's either spiky or infrequent (for example, less than 1 query per
+second). The following reasons might contribute to those results:
+Time ranges that are larger than 12 hours can lead to a less accurate
+representation of the quota enforcement period. Throughput metrics
+and their derivatives, such as utilization, display averages across alignment
+periods that are based on the selected time range. When the time range
+expands, each alignment period also expands. The alignment period expands
+across the calculation of the average usage. Because quota enforcement is
+calculated at a sub-minute level, setting the time range to a period of 12
+hours or less results in minute-level data that is more comparable to the
+actual quota enforcement period. For more information on alignment periods,
+see
+Alignment: within-series
+regularization
+. For more
+information about time ranges, see
+Regularizing time
+intervals
+.
+If multiple requests were submitted at the same time, monitoring aggregations
+might impact your ability to filter down to specific requests.
+Provisioned Throughput throttles traffic when a request was made
+but reports usage metrics after the quota is reconciled.
+Provisioned Throughput quota enforcement periods are independent
+from and might not align with monitoring aggregation periods or
+request-or-response periods.
+If no errors occurred, you might see an error message within the error rate
+chart. For example,
+An error occurred requesting data. One or more resources
+could not be found.
+Monitor Genmedia models
+Provisioned Throughput monitoring isn't available on
+Veo 3 and Imagen models.
+Alerting
+After alerting is enabled, set default alerts to help you manage your traffic
+usage.
+Enable alerts
+To enable alerts in the dashboard, do the following:
+In the Google Cloud console, go to the
+Provisioned Throughput
+page.
+Go to Provisioned Throughput
+To view the Provisioned Throughput utilization of each model
+across your orders, select the
+Utilization summary
+tab.
+Select
+Recommended alerts
+, and the following alerts display:
+Provisioned Throughput Usage Reached Limit
+Provisioned Throughput Utilization Exceeded 80%
+Provisioned Throughput Utilization Exceeded 90%
+Check the alerts that help you manage your traffic.
+View more alert details
+To view more information about alerts, do the following:
+Go to the
+Integrations
+page.
+Go to Integrations
+Enter
+vertex
+into the
+Filter
+field and press
+Enter
+.
+Google
+Vertex AI
+appears.
+To view more information, click
+View details
+. The
+Google
+Vertex AI details
+pane displays.
+Select
+Alerts
+tab, and you can select an
+Alert Policy
+template.
+What's next
+Troubleshoot
+Error code
+429
+.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2025-11-07 UTC.

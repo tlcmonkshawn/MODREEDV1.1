@@ -1,0 +1,1144 @@
+URL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/live-api
+================================================================================
+
+Home
+Technology areas
+Generative AI on Vertex AI
+Documentation
+Send feedback
+Live API
+Stay organized with collections
+Save and categorize content based on your preferences.
+The Live API enables low-latency, two-way voice and video interactions
+with Gemini. Use the Live API to provide end users with
+natural, human-like voice conversations, including the ability to interrupt the
+model's responses with voice commands.
+This document covers the basics of using Live API, including its
+capabilities, starter examples, and basic use case code examples. If you're
+looking for information on how to start an interactive conversation using the
+Live API, see
+Interactive conversations with the Live API
+. If you're looking for information
+on what tools the Live API can use, see
+Built-in
+tools
+.
+Try in Vertex AI
+Supported models
+The Live API is supported for use in both the Google Gen AI SDK and
+using Vertex AI Studio. Some features (like text input and output) are
+only available using the Gen AI SDK.
+You can use the Live API with the following models:
+Model version
+Availability level
+gemini-live-2.5-flash
+Private GA
+*
+gemini-live-2.5-flash-preview-native-audio-09-2025
+Public preview
+gemini-live-2.5-flash-preview-native-audio
+Public preview; Discontinuation date: October 18, 2025
+*
+Reach out to your Google account team representative to request
+access.
+For more information including technical specifications and limitations, see the
+Live API reference
+guide
+.
+Live API capabilities
+Real-time multimodal
+understanding:
+Converse
+with Gemini about what it sees on a video feed or through screen
+sharing, using built-in support for streaming audio and video.
+Built-in tool usage:
+Seamlessly integrate
+tools like
+function calling
+and
+Grounding with Google Search
+into your
+conversations for more practical and dynamic interactions.
+Low latency interactions:
+Have low latency, human-like interactions with
+Gemini.
+Multilingual support:
+Converse in 24 supported languages.
+(GA versions only)
+Support for
+Provisioned Throughput
+:
+Use fixed-cost, fixed-term subscription
+available in several term-lengths that reserves throughput for supported
+generative AI models on Vertex AI, including Live API.
+High-quality transcription:
+Live API supports
+text transcription
+for both input and output audio.
+Gemini 2.5 Flash with Live API also includes
+native audio
+as a public preview offering. Native audio introduces:
+Affective Dialog:
+Live API
+understands and responds to the user's tone of voice. The same words spoken
+in different ways can lead to vastly different and more nuanced
+conversations.
+Proactive Audio and context awareness:
+Live API intelligently disregards ambient conversations and other
+irrelevant audio, understanding when to listen and when to remain silent.
+For more information on native audio, see
+Built-in
+tools
+.
+Supported audio formats
+The Live API supports the following audio formats:
+Input audio:
+Raw 16-bit PCM audio at 16kHz, little-endian
+Output audio:
+Raw 16-bit PCM audio at 24kHz, little-endian
+Supported video formats
+Live API supports video frames input at 1FPS. For best results, use
+native 768x768 resolution at 1FPS.
+Starter examples
+You can get started using the Live API with one of the following
+notebook tutorials, demo applications, or guides.
+Notebook tutorials
+Download these notebook tutorials from GitHub, or open the notebook tutorials in
+the environment of your choice.
+Use WebSockets with the Live API
+Streaming audio and video
+Demo applications and guides
+WebSocket demo app
+Agent Development Kit: Custom Audio Streaming
+Project Livewire
+Additional examples
+To get even more utility from Live API, try these examples that use
+Live API's audio processing, transcription, and voice response
+capabilities.
+Get text responses from audio input
+You can send audio and receive text responses by converting the audio to a
+16-bit PCM, 16kHz, mono format. The following example reads a WAV file and sends
+it in the correct format:
+Python
+# Test file: https://storage.googleapis.com/generativeai-downloads/data/16000.wav
+# Install helpers for converting files: pip install librosa soundfile
+import
+asyncio
+import
+io
+from
+pathlib
+import
+Path
+from
+google
+import
+genai
+from
+google.genai
+import
+types
+import
+soundfile
+as
+sf
+import
+librosa
+client
+=
+genai
+.
+Client
+(
+vertexai
+=
+True
+,
+project
+=
+GOOGLE_CLOUD_PROJECT
+,
+location
+=
+GOOGLE_CLOUD_LOCATION
+,
+)
+model
+=
+"gemini-live-2.5-flash"
+config
+=
+{
+"response_modalities"
+:
+[
+"TEXT"
+]}
+async
+def
+main
+():
+async
+with
+client
+.
+aio
+.
+live
+.
+connect
+(
+model
+=
+model
+,
+config
+=
+config
+)
+as
+session
+:
+buffer
+=
+io
+.
+BytesIO
+()
+y
+,
+sr
+=
+librosa
+.
+load
+(
+"sample.wav"
+,
+sr
+=
+16000
+)
+sf
+.
+write
+(
+buffer
+,
+y
+,
+sr
+,
+format
+=
+"RAW"
+,
+subtype
+=
+"PCM_16"
+)
+buffer
+.
+seek
+(
+0
+)
+audio_bytes
+=
+buffer
+.
+read
+()
+# If already in correct format, you can use this:
+# audio_bytes = Path("sample.pcm").read_bytes()
+await
+session
+.
+send_realtime_input
+(
+audio
+=
+types
+.
+Blob
+(
+data
+=
+audio_bytes
+,
+mime_type
+=
+"audio/pcm;rate=16000"
+)
+)
+async
+for
+response
+in
+session
+.
+receive
+():
+if
+response
+.
+text
+is
+not
+None
+:
+print
+(
+response
+.
+text
+)
+if
+__name__
+==
+"__main__"
+:
+asyncio
+.
+run
+(
+main
+())
+Get voice responses from text input
+Use this example to send text input and receive synthesized speech responses:
+Python
+import
+asyncio
+import
+numpy
+as
+np
+from
+IPython.display
+import
+Audio
+,
+Markdown
+,
+display
+from
+google
+import
+genai
+from
+google.genai.types
+import
+(
+Content
+,
+LiveConnectConfig
+,
+HttpOptions
+,
+Modality
+,
+Part
+,
+SpeechConfig
+,
+VoiceConfig
+,
+PrebuiltVoiceConfig
+,
+)
+client
+=
+genai
+.
+Client
+(
+vertexai
+=
+True
+,
+project
+=
+GOOGLE_CLOUD_PROJECT
+,
+location
+=
+GOOGLE_CLOUD_LOCATION
+,
+)
+voice_name
+=
+"Aoede"
+config
+=
+LiveConnectConfig
+(
+response_modalities
+=
+[
+"AUDIO"
+],
+speech_config
+=
+SpeechConfig
+(
+voice_config
+=
+VoiceConfig
+(
+prebuilt_voice_config
+=
+PrebuiltVoiceConfig
+(
+voice_name
+=
+voice_name
+,
+)
+),
+),
+)
+async
+with
+client
+.
+aio
+.
+live
+.
+connect
+(
+model
+=
+"gemini-live-2.5-flash"
+,
+config
+=
+config
+,
+)
+as
+session
+:
+text_input
+=
+"Hello? Gemini are you there?"
+display
+(
+Markdown
+(
+f
+"**Input:**
+{
+text_input
+}
+"
+))
+await
+session
+.
+send_client_content
+(
+turns
+=
+Content
+(
+role
+=
+"user"
+,
+parts
+=
+[
+Part
+(
+text
+=
+text_input
+)]))
+audio_data
+=
+[]
+async
+for
+message
+in
+session
+.
+receive
+():
+if
+(
+message
+.
+server_content
+.
+model_turn
+and
+message
+.
+server_content
+.
+model_turn
+.
+parts
+):
+for
+part
+in
+message
+.
+server_content
+.
+model_turn
+.
+parts
+:
+if
+part
+.
+inline_data
+:
+audio_data
+.
+append
+(
+np
+.
+frombuffer
+(
+part
+.
+inline_data
+.
+data
+,
+dtype
+=
+np
+.
+int16
+)
+)
+if
+audio_data
+:
+display
+(
+Audio
+(
+np
+.
+concatenate
+(
+audio_data
+),
+rate
+=
+24000
+,
+autoplay
+=
+True
+))
+For more examples of sending text, see
+our Getting Started
+guide
+.
+Transcribe audio
+The Live API can transcribe both input and output audio. Use the
+following example to enable transcription:
+Python
+import
+asyncio
+from
+google
+import
+genai
+from
+google.genai
+import
+types
+client
+=
+genai
+.
+Client
+(
+vertexai
+=
+True
+,
+project
+=
+GOOGLE_CLOUD_PROJECT
+,
+location
+=
+GOOGLE_CLOUD_LOCATION
+,
+)
+model
+=
+"gemini-live-2.5-flash"
+config
+=
+{
+"response_modalities"
+:
+[
+"AUDIO"
+],
+"input_audio_transcription"
+:
+{},
+"output_audio_transcription"
+:
+{}
+}
+async
+def
+main
+():
+async
+with
+client
+.
+aio
+.
+live
+.
+connect
+(
+model
+=
+model
+,
+config
+=
+config
+)
+as
+session
+:
+message
+=
+"Hello? Gemini are you there?"
+await
+session
+.
+send_client_content
+(
+turns
+=
+{
+"role"
+:
+"user"
+,
+"parts"
+:
+[{
+"text"
+:
+message
+}]},
+turn_complete
+=
+True
+)
+async
+for
+response
+in
+session
+.
+receive
+():
+if
+response
+.
+server_content
+.
+model_turn
+:
+print
+(
+"Model turn:"
+,
+response
+.
+server_content
+.
+model_turn
+)
+if
+response
+.
+server_content
+.
+input_transcription
+:
+print
+(
+"Input transcript:"
+,
+response
+.
+server_content
+.
+input_transcription
+.
+text
+)
+if
+response
+.
+server_content
+.
+output_transcription
+:
+print
+(
+"Output transcript:"
+,
+response
+.
+server_content
+.
+output_transcription
+.
+text
+)
+if
+__name__
+==
+"__main__"
+:
+asyncio
+.
+run
+(
+main
+())
+WebSockets
+# Set model generation_config
+CONFIG
+=
+{
+'response_modalities'
+:
+[
+'AUDIO'
+],
+}
+headers
+=
+{
+"Content-Type"
+:
+"application/json"
+,
+"Authorization"
+:
+f
+"Bearer
+{
+bearer_token
+[
+0
+]
+}
+"
+,
+}
+# Connect to the server
+async
+with
+connect
+(
+SERVICE_URL
+,
+additional_headers
+=
+headers
+)
+as
+ws
+:
+# Setup the session
+await
+ws
+.
+send
+(
+json
+.
+dumps
+(
+{
+"setup"
+:
+{
+"model"
+:
+"gemini-2.0-flash-live-preview-04-09"
+,
+"generation_config"
+:
+CONFIG
+,
+'input_audio_transcription'
+:
+{},
+'output_audio_transcription'
+:
+{}
+}
+}
+)
+)
+# Receive setup response
+raw_response
+=
+await
+ws
+.
+recv
+(
+decode
+=
+False
+)
+setup_response
+=
+json
+.
+loads
+(
+raw_response
+.
+decode
+(
+"ascii"
+))
+# Send text message
+text_input
+=
+"Hello? Gemini are you there?"
+display
+(
+Markdown
+(
+f
+"**Input:**
+{
+text_input
+}
+"
+))
+msg
+=
+{
+"client_content"
+:
+{
+"turns"
+:
+[{
+"role"
+:
+"user"
+,
+"parts"
+:
+[{
+"text"
+:
+text_input
+}]}],
+"turn_complete"
+:
+True
+,
+}
+}
+await
+ws
+.
+send
+(
+json
+.
+dumps
+(
+msg
+))
+responses
+=
+[]
+input_transcriptions
+=
+[]
+output_transcriptions
+=
+[]
+# Receive chucks of server response
+async
+for
+raw_response
+in
+ws
+:
+response
+=
+json
+.
+loads
+(
+raw_response
+.
+decode
+())
+server_content
+=
+response
+.
+pop
+(
+"serverContent"
+,
+None
+)
+if
+server_content
+is
+None
+:
+break
+if
+(
+input_transcription
+:=
+server_content
+.
+get
+(
+"inputTranscription"
+))
+is
+not
+None
+:
+if
+(
+text
+:=
+input_transcription
+.
+get
+(
+"text"
+))
+is
+not
+None
+:
+input_transcriptions
+.
+append
+(
+text
+)
+if
+(
+output_transcription
+:=
+server_content
+.
+get
+(
+"outputTranscription"
+))
+is
+not
+None
+:
+if
+(
+text
+:=
+output_transcription
+.
+get
+(
+"text"
+))
+is
+not
+None
+:
+output_transcriptions
+.
+append
+(
+text
+)
+model_turn
+=
+server_content
+.
+pop
+(
+"modelTurn"
+,
+None
+)
+if
+model_turn
+is
+not
+None
+:
+parts
+=
+model_turn
+.
+pop
+(
+"parts"
+,
+None
+)
+if
+parts
+is
+not
+None
+:
+for
+part
+in
+parts
+:
+pcm_data
+=
+base64
+.
+b64decode
+(
+part
+[
+"inlineData"
+][
+"data"
+])
+responses
+.
+append
+(
+np
+.
+frombuffer
+(
+pcm_data
+,
+dtype
+=
+np
+.
+int16
+))
+# End of turn
+turn_complete
+=
+server_content
+.
+pop
+(
+"turnComplete"
+,
+None
+)
+if
+turn_complete
+:
+break
+if
+input_transcriptions
+:
+display
+(
+Markdown
+(
+f
+"**Input transcription >**
+{
+''
+.
+join
+(
+input_transcriptions
+)
+}
+"
+))
+if
+responses
+:
+# Play the returned audio message
+display
+(
+Audio
+(
+np
+.
+concatenate
+(
+responses
+),
+rate
+=
+24000
+,
+autoplay
+=
+True
+))
+if
+output_transcriptions
+:
+display
+(
+Markdown
+(
+f
+"**Output transcription >**
+{
+''
+.
+join
+(
+output_transcriptions
+)
+}
+"
+))
+Pricing for Live API transcription is determined by the number of text
+output tokens. To learn more, please see the
+Vertex AI pricing page
+.
+More information
+For more information on using the Live API, see:
+Best practices with the Live API
+Live API reference guide
+Interactive conversations
+Built-in tools
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2025-11-07 UTC.

@@ -1,0 +1,112 @@
+URL: https://docs.cloud.google.com/vertex-ai/generative-ai/docs/dynamic-shared-quota
+================================================================================
+
+Home
+Technology areas
+Generative AI on Vertex AI
+Documentation
+Send feedback
+Dynamic shared quota (DSQ)
+Stay organized with collections
+Save and categorize content based on your preferences.
+Dynamic shared quota (DSQ) was introduced to serve your pay-as-you-go (PayGo)
+requests with greater flexibility to adapt to your workload needs without having
+to manage quotas and quota increase requests (QIR). With DSQ, there are no predefined
+quota limits on your usage. Instead, DSQ provides access to a large, shared pool of
+resources, dynamically allocated based on real-time availability of resources and
+real-time demand across all customers of that model. When more customers are active,
+each customer gets a lower amount of throughput. Similarly, if there are fewer customers,
+each customer might get higher throughput.
+Supported models
+The following Gemini models and their
+supervised fine-tuned
+models support DSQ:
+Gemini 2.5 Flash
+(Preview)
+Gemini 2.5 Flash-Lite
+(Preview)
+Gemini 2.5 Flash Image
+Gemini 2.5 Flash-Lite
+Gemini 2.0 Flash with Live API
+(Preview)
+Gemini 2.0 Flash with image generation
+(Preview)
+Gemini 2.5 Pro
+Gemini 2.5 Flash
+Gemini 2.0 Flash
+Gemini 2.0 Flash-Lite
+The following Imagen models support DSQ:
+Imagen 4
+Imagen 4 Fast
+Imagen 4 Ultra
+How DSQ works
+Dynamic shared quota (DSQ) adapts to your traffic patterns and needs and
+minimizes usage frictions. Your project's access to resources under DSQ is not
+capped by an arbitrary number we set. Instead, it's determined by the overall
+capacity of the shared pool and the current collective demand from all customers.
+This model is designed to offer significant flexibility, allowing your workloads
+to burst and consume more resources when available. Conversely, it also allows
+all customers of the shared pool to have a chance to access resources when
+available without requiring to configure per customer quota.
+To ensure a fair and stable experience for all users in the shared resource
+environment, Dynamic Shared Quota intelligently manages how requests are handled,
+especially during periods of very high demand from isolated sources. Rather than
+a fixed cap, DSQ employs a dynamic prioritization approach. This means that while
+the system is designed to accommodate bursts, unusually large and rapid spikes in
+traffic from a single source may be handled with a different priority than more
+consistent, steady traffic. This sophisticated management ensures that broad user
+activity and regular workloads are protected from transient, extreme spikes,
+promoting overall system stability and equitable access.
+Gemini requests with multi-modal inputs are subject to the
+corresponding system rate limits that include
+image
+,
+audio
+,
+video
+, and
+document
+.
+To help ensure high availability for your application and to get predictable
+service levels for your production workloads, see
+Provisioned Throughput
+.
+Understanding Resource Exhaustion 429 errors under DSQ
+We understand that encountering a 'resource exhausted' 429 error can be
+frustrating and might lead you to suspect you are hitting some sort of quota
+limit. However, with DSQ, this is not the case. These errors indicate that the
+overall shared pool of resources for that specific type (e.g., a particular
+model in a specific region) at a specific time is experiencing extremely high
+demand from many users simultaneously. Think of it like trying to get on a very
+popular train during peak rush hour. There isn't a 'ticket limit' specifically
+for you, but the train itself might be momentarily full. It's a temporary state
+of contention for resources, not a fixed limit imposed on your project.
+DSQ is constantly working to manage and distribute the available capacity fairly
+and efficiently. When you receive such an error, it means instantaneous demand
+has outstripped the available supply in that shared pool. Unlike a hard
+quota where you'd be blocked even if resources were idle elsewhere, DSQ aims to
+give you access whenever resources are free. The exhaustion error is a reflection
+of the entire system's current load, not a ceiling on your account.
+We recommend implementing retry mechanisms, as availability in this dynamic
+environment can change quickly. For more tactics of handling Resource Exhaustion
+errors, see
+A guide to handling 429 errors
+or
+Error code 429
+.
+What's next
+To learn about quotas and limits for Vertex AI, see
+Vertex AI quotas and limits
+.
+To learn more about Google Cloud quotas and system limits, see the
+Cloud Quotas documentation
+.
+Send feedback
+Except as otherwise noted, the content of this page is licensed under the
+Creative Commons Attribution 4.0 License
+, and code samples are licensed under the
+Apache 2.0 License
+. For details, see the
+Google Developers Site Policies
+. Java is a registered trademark of Oracle and/or its affiliates.
+Last updated 2025-11-07 UTC.
