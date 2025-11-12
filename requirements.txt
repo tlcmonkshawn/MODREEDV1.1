@@ -2,3 +2,25 @@ requests>=2.31.0
 beautifulsoup4>=4.12.0
 lxml>=4.9.0
 
+# Live API and Google Cloud
+google-genai>=0.2.0
+
+# Web Framework
+flask>=3.0.0
+flask-cors>=4.0.0
+
+# Audio/Video Processing
+pyaudio>=0.2.14
+opencv-python>=4.8.0
+numpy>=1.24.0
+Pillow>=10.0.0
+
+# Database
+sqlalchemy>=2.0.0
+
+# WebSocket and Async
+websockets>=12.0
+aiohttp>=3.9.0
+
+# Utilities
+python-dotenv>=1.0.0

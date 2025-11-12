@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live API Video Call - Reed</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Reed Orb at Top -->
+        <div class="reed-orb-container">
+            <div id="reed-orb" class="reed-orb">
+                <div class="reed-orb-glow"></div>
+                <div class="reed-orb-inner">Reed</div>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <div class="main-content">
+            <!-- Camera View Section -->
+            <div class="camera-section">
+                <div class="recording-indicator">
+                    <span class="rec-dot"></span>
+                    <span id="rec-timer">REC 0</span>
+                </div>
+                
+                <div class="camera-view-container">
+                    <canvas id="camera-canvas" width="768" height="768"></canvas>
+                    <div class="crosshairs"></div>
+                </div>
+
+                <!-- Control Buttons -->
+                <div class="control-buttons">
+                    <button id="flip-btn" class="control-btn" title="Flip Camera">
+                        <span>FLIP</span>
+                    </button>
+                    <button id="snap-btn" class="control-btn snap-btn" title="Take Snapshot">
+                        <span>SNAP</span>
+                    </button>
+                    <button id="mute-btn" class="control-btn" title="Mute Audio">
+                        <span>MUTE</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Bootie Viewer Panel (Landscape) -->
+            <div id="bootie-viewer" class="bootie-viewer">
+                <div class="bootie-left-panel">
+                    <div class="video-display">
+                        <canvas id="bootie-video-canvas" width="400" height="300"></canvas>
+                    </div>
+                    <div class="bootie-controls">
+                        <button class="bootie-control-dot"></button>
+                        <button class="bootie-control-dot"></button>
+                        <button class="bootie-control-dot"></button>
+                    </div>
+                </div>
+                
+                <div class="bootie-right-panel">
+                    <div class="reed-profile">
+                        <div class="reed-profile-orb">Reed</div>
+                    </div>
+                    
+                    <div class="last-item-info">
+                        <div class="info-label">LAST ITEM</div>
+                        <div class="info-line"></div>
+                        <div class="info-label">NAME</div>
+                        <div id="last-item-name" class="info-value">-</div>
+                        <div class="info-label">STATUS</div>
+                        <div id="last-item-status" class="info-value">-</div>
+                    </div>
+                    
+                    <div class="camera-select">
+                        <div class="camera-select-label">CAMERA Select</div>
+                        <div class="camera-select-dots">
+                            <button class="camera-dot active"></button>
+                            <button class="camera-dot"></button>
+                            <button class="camera-dot"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Item Drawer (Landscape) / Alert (Portrait) -->
+        <div id="item-drawer" class="item-drawer">
+            <div class="drawer-header">
+                <h3>Captured Items</h3>
+                <button id="close-drawer" class="close-btn">&times;</button>
+            </div>
+            <div id="item-list" class="item-list">
+                <!-- Items will be dynamically added here -->
+            </div>
+        </div>
+
+        <!-- Portrait Alert Modal -->
+        <div id="portrait-alert" class="portrait-alert">
+            <div class="alert-content">
+                <div class="alert-icon">📸</div>
+                <div class="alert-message">Snapshot captured!</div>
+                <button id="close-alert" class="alert-close-btn">OK</button>
+            </div>
+        </div>
+
+        <!-- Chat Transcript Panel -->
+        <div id="chat-transcript" class="chat-transcript">
+            <div class="transcript-header">
+                <h3>Chat Transcript</h3>
+                <button id="toggle-transcript" class="toggle-btn">−</button>
+            </div>
+            <div id="transcript-content" class="transcript-content">
+                <!-- Transcript messages will be added here -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/reed-orb.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootie-viewer.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/image-review.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+
